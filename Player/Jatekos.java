@@ -38,6 +38,8 @@ public class Jatekos {
         egysegek[0] = new Foldmuves();
         egysegek[1] = new Ijasz();
         egysegek[2] = new Griff();
+        egysegek[3] = new Hobgoblin();
+        egysegek[4] = new Demon();
 
     }
 

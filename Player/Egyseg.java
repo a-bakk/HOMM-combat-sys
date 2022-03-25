@@ -42,6 +42,22 @@ public abstract class Egyseg {
                     sikeres = true;
                 }
             }
+            case "hobgoblin" -> {
+                if (kinek.arany >= hanyat * kinek.egysegek[3].ar) {
+                    kinek.egysegek[3].hanyVan += hanyat;
+                    kinek.arany -= hanyat * kinek.egysegek[3].ar;
+                    System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
+                    sikeres = true;
+                }
+            }
+            case "demon" -> {
+                if (kinek.arany >= hanyat * kinek.egysegek[4].ar) {
+                    kinek.egysegek[4].hanyVan += hanyat;
+                    kinek.arany -= hanyat * kinek.egysegek[4].ar;
+                    System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
+                    sikeres = true;
+                }
+            }
         }
         if (sikeres) {
             GameManager.info("arany", kinek);
@@ -57,7 +73,7 @@ public abstract class Egyseg {
 
     public static String toString(Jatekos kinek, String milyenEgyseg) {
 
-        char kezdobetu = 'H'; // H - HIBA
+        char kezdobetu = '-'; // - HIBA
         int maxHossz = 0;
         int szam = 0;
         char valodiJatekos = kinek.isSzamitoGep() ? 'G' : 'J';
@@ -78,6 +94,16 @@ public abstract class Egyseg {
                 szam = kinek.egysegek[2].hanyVan;
                 maxHossz = String.valueOf(kinek.egysegek[2].hanyVan).length();
             }
+            case "hobgoblin" -> {
+                kezdobetu = 'H';
+                szam = kinek.egysegek[3].hanyVan;
+                maxHossz = String.valueOf(kinek.egysegek[3].hanyVan).length();
+            }
+            case "demon" -> {
+                kezdobetu = 'D';
+                szam = kinek.egysegek[4].hanyVan;
+                maxHossz = String.valueOf(kinek.egysegek[4].hanyVan).length();
+            }
         }
 
         switch (maxHossz) {
@@ -95,7 +121,7 @@ public abstract class Egyseg {
     }
 
     public static void listEgysegek(Jatekos kinek) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < kinek.egysegek.length; i++) {
             if (kinek.egysegek[i].hanyVan != 0) {
                 switch (i) {
                     case 0 -> {
@@ -108,7 +134,15 @@ public abstract class Egyseg {
                     }
                     case 2 -> {
                         if (kinek.egysegek[2].hanyVan != 0)
-                        System.out.println("[~] Griff: " + kinek.egysegek[2].hanyVan);
+                            System.out.println("[~] Griff: " + kinek.egysegek[2].hanyVan);
+                    }
+                    case 3 -> {
+                        if (kinek.egysegek[3].hanyVan != 0)
+                            System.out.println("[~] Hobgoblin: " + kinek.egysegek[3].hanyVan);
+                    }
+                    case 4 -> {
+                        if (kinek.egysegek[4].hanyVan != 0)
+                            System.out.println("[~] Demon: " + kinek.egysegek[4].hanyVan);
                     }
                 }
             }
@@ -117,8 +151,8 @@ public abstract class Egyseg {
     }
 
     public static boolean vanEgyseg(Jatekos kinek, String milyenEgyseg) {
-        for (int i = 0; i < 3; i++) {
-            if ("foldmuves".equals(milyenEgyseg) || "ijasz".equals(milyenEgyseg) || "griff".equals(milyenEgyseg)) {
+        for (int i = 0; i < kinek.egysegek.length; i++) {
+            if ("foldmuves".equals(milyenEgyseg) || "ijasz".equals(milyenEgyseg) || "griff".equals(milyenEgyseg) || "hobgoblin".equals(milyenEgyseg) || "demon".equals(milyenEgyseg)) {
                 // TODO teljesen folos for
                 switch (milyenEgyseg) {
                     case "foldmuves" -> {
@@ -136,6 +170,16 @@ public abstract class Egyseg {
                             return true;
                         }
                     }
+                    case "hobgoblin" -> {
+                        if (kinek.egysegek[3].hanyVan != 0 && !kinek.egysegek[3].elhelyezett) {
+                            return true;
+                        }
+                    }
+                    case "demon" -> {
+                        if (kinek.egysegek[4].hanyVan != 0 && !kinek.egysegek[4].elhelyezett) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -144,7 +188,7 @@ public abstract class Egyseg {
 
     public static int hanyEgyseg(Jatekos kinek) {
         int res = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < kinek.egysegek.length; i++) {
                 if (kinek.egysegek[i].hanyVan != 0) res++;
         }
         return res;
@@ -155,6 +199,8 @@ public abstract class Egyseg {
             case "foldmuves" -> kinek.egysegek[0].elhelyezett = true;
             case "ijasz" -> kinek.egysegek[1].elhelyezett = true;
             case "griff" -> kinek.egysegek[2].elhelyezett = true;
+            case "hobgoblin" -> kinek.egysegek[3].elhelyezett = true;
+            case "demon" -> kinek.egysegek[4].elhelyezett = true;
         }
     }
 
@@ -168,6 +214,12 @@ public abstract class Egyseg {
             }
             case "griff" -> {
                 return kinek.egysegek[2];
+            }
+            case "hobgoblin" -> {
+                return kinek.egysegek[3];
+            }
+            case "demon" -> {
+                return kinek.egysegek[4];
             }
         }
         return null;
@@ -188,4 +240,44 @@ public abstract class Egyseg {
     public void setHanyVan(int hanyVan) {
         this.hanyVan = hanyVan;
     }
+
+    //region getters
+
+    public int getAr() {
+        return ar;
+    }
+
+    public int getMinSebzes() {
+        return minSebzes;
+    }
+
+    public int getEletero() {
+        return eletero;
+    }
+
+    public int getSebesseg() {
+        return sebesseg;
+    }
+
+    public int getKezdemenyezes() {
+        return kezdemenyezes;
+    }
+
+    public String getSpecKepesseg() {
+        return specKepesseg;
+    }
+
+    public int getMaxSebzes() {
+        return maxSebzes;
+    }
+
+    public int getHanyVan() {
+        return hanyVan;
+    }
+
+    public boolean isElhelyezett() {
+        return elhelyezett;
+    }
+
+    //endregion
 }
