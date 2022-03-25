@@ -25,6 +25,14 @@ public class Mezo {
 
     public String getTartalom() { return this.tartalom; }
 
+    public Jatekos getKiBirtokolja() {
+        return kiBirtokolja;
+    }
+
+    public Egyseg getTartalomEgyseg() {
+        return tartalomEgyseg;
+    }
+
     public void setMezo(String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {
         this.kiBirtokolja = kinek;
         this.tartalom = Egyseg.toString(kinek, milyenEgyseg);

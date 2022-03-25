@@ -1,5 +1,6 @@
 package GameManager.Rounds;
 
+import JatekPalya.Palya;
 import Player.*;
 
 import java.util.Scanner;
@@ -40,11 +41,62 @@ public class Kor {
                     System.out.print("[!] Valassz: tamadas/varazslas vagy TOVABB - azaz nem most lepsz vele: ");
                     input = scanner.nextLine();
                     while((!"TOVABB".equals(input))) {
+
                         if ("tamadas".equals(input)) {
-                            //TODO Hos tamadas
-                            System.out.println("A hos tamadott!");
-                            jatekosHosAction = true;
-                            break;
+
+                            int koordX = 0, koordY = 0;
+
+                            System.out.println("[!] Melyik egyseget szeretned megtamadni a hosoddel?");
+                            System.out.print("[!] X koordinata (melyik sor): ");
+                            input = scanner.nextLine();
+
+                            boolean szamotkap = false;
+                            while (!szamotkap) {
+                                try {
+                                    koordX = Math.abs(Integer.parseInt(input));
+                                    if ((koordX - 1) >= 0 && (koordX - 1) <= 9) {
+                                        szamotkap = true;
+                                    } else {
+                                        System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
+                                        input = scanner.nextLine();
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.print("[!] Hibas input! Szamot adj meg: ");
+                                    input = scanner.nextLine();
+                                }
+                            }
+
+                            System.out.print("[!] Y koordinata (melyik oszlop): ");
+                            input = scanner.nextLine();
+
+                            szamotkap = false;
+                            while (!szamotkap) {
+                                try {
+                                    koordY = Math.abs(Integer.parseInt(input));
+                                    if ((koordY - 1) >= 0 && (koordY - 1) <= 11) {
+                                        szamotkap = true;
+                                    } else {
+                                        System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
+                                        input = scanner.nextLine();
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.print("[!] Hibas input! Szamot adj meg: ");
+                                    input = scanner.nextLine();
+                                }
+                            }
+
+                            Egyseg celpont = Palya.chooseMezoEnemyLetezik(convertKoordinata(koordX), convertKoordinata(koordY), jatekos, szGep);
+                            if (celpont != null) {
+                                System.out.println("A hos tamadott!");
+                                //TODO tamad a hos
+                                jatekosHosAction = true;
+                                break;
+                            }
+                            else {
+                                System.out.println("[!] Sikertelen tamadas! Lehetseges, hogy ures mezot valasztottal, vagy sajat egyseget!");
+                                continue;
+                            }
+
                         }
                         else if ("varazslas".equals(input)) {
                             //TODO Hos varazslas
@@ -53,7 +105,7 @@ public class Kor {
                             break;
                         }
                         else {
-                            System.out.print("[!] Hibas input! Adj meg helyes erteket: ");
+                            System.out.print("[!] Hibas input vagy sikertelen lepes! tamadas/varazslas/TOVABB: ");
                         }
                         input = scanner.nextLine();
                     }
@@ -89,6 +141,10 @@ public class Kor {
             }
 
         }
+    }
+
+    public static int convertKoordinata(int koordinata) {
+        return --koordinata;
     }
 
     public static Jatekos[] feltoltLepesLista(Jatekos jatekos, Jatekos szGep) {

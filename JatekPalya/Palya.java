@@ -27,6 +27,28 @@ public class Palya {
         mezok[koordX][koordY].setMezo(milyenEgyseg, kinek, melyikEgyseg);
     }
 
+    public static void mezoFelszabadit(int koordX, int koordY) {
+        mezok[koordX][koordY].resetMezo();
+    }
+
+    public static Egyseg chooseMezoEnemyLetezik(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
+
+        if (!foglalt(koordX, koordY)) {
+            return null;
+        }
+
+        if (mezok[koordX][koordY].getKiBirtokolja() == kitTamad) {
+            return mezok[koordX][koordY].getTartalomEgyseg();
+        }
+
+        return null;
+    }
+
+    public static void hosTamad(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
+        Egyseg target = mezok[koordX][koordY].getTartalomEgyseg();
+        //TODO hanyEgyseg-et is kell modositani
+    }
+
     public static void paintPalya(Jatekos jatekos1, Jatekos jatekos2) {
         final String ures = "               ";
         final String hatosUres = "      ";

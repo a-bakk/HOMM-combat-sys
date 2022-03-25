@@ -158,8 +158,8 @@ public class GameManager {
         System.out.println("[~] ijasz - ar: 6 - sebzes: 2-4 - eletero: 7 - sebesseg: 4 - kezdemenyezes: 9 - specialis kepesseg: loves");
         System.out.println("[~] griff - ar: 15 - sebzes: 5-10 - eletero: 30 - sebesseg: 7 - kezdemenyezes: 15 - specialis kepesseg: vegtelen visszatamadas");
         System.out.println("[~] hobgoblin - ar: 3 - sebzes: 1-2 - eletero: 1 - sebesseg: 5 - kezdemenyezes: 10 - specialis kepesseg: mergezes");
+        System.out.println("[~] demon: - ar: 20 - sebzes: 15-25 - eletero: 10 - sebesseg: 3 - kezdemenyezes: 12 - specialis kepesseg: vegtelen visszatamadas");
         System.out.println("[~] mergezes magyarazata: vegzetesen megmergezi egy tetszoleges enemy egyseg egy peldanyat");
-        System.out.println("[~] demon: - ar: 20 - sebzes: 15-25 - eletero: 10 - sebesseg: 3 - kezdemenyezes: 12 - specialis kepesseg: MEGNINCS"); //TODO specK
         System.out.print("[!] Valassz: ");
 
         String input = scanner.nextLine();
