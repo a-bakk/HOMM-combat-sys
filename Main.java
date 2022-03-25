@@ -1,4 +1,5 @@
 import GameManager.*;
+import GameManager.Rounds.*;
 import Player.*;
 import JatekPalya.*;
 
@@ -29,6 +30,8 @@ public class Main {
 
         GameManager.elhelyezSzGep(szGep);
         Palya.paintPalya(jatekos, szGep);
+
+        Kor.ujKor(jatekos, szGep);
 
     }
 

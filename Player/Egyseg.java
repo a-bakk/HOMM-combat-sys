@@ -71,6 +71,25 @@ public abstract class Egyseg {
 
     }
 
+    public static String egysegNev(Jatekos jatekos, Egyseg egyseg) {
+        if (egyseg == jatekos.egysegek[0]) {
+            return "foldmuves";
+        }
+        if (egyseg == jatekos.egysegek[1]) {
+            return "ijasz";
+        }
+        if (egyseg == jatekos.egysegek[2]) {
+            return "griff";
+        }
+        if (egyseg == jatekos.egysegek[3]) {
+            return "hobgoblin";
+        }
+        if (egyseg == jatekos.egysegek[4]) {
+            return "demon";
+        }
+        return null;
+    }
+
     public static String toString(Jatekos kinek, String milyenEgyseg) {
 
         char kezdobetu = '-'; // - HIBA
