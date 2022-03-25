@@ -1,11 +1,11 @@
 package Player;
 
-public class Feltamasztas extends Varazslat {
+public class Varazsszarnyak extends Varazslat {
 
-    public Feltamasztas() {
-        this.ar = 120;
+    public Varazsszarnyak() {
         this.rendelkezik = false;
-        this.mannaKoltseg = 6;
+        this.ar = 110;
+        this.mannaKoltseg = 8;
     }
 
     @Override

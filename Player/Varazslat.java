@@ -42,6 +42,22 @@ public abstract class Varazslat {
                     kinek.arany -= kinek.varazslatok[2].ar;
                 }
             }
+            case "armageddon" -> {
+                if (!kinek.varazslatok[3].rendelkezik && kinek.arany > kinek.varazslatok[3].ar) {
+                    kinek.varazslatok[3].setRendelkezik();
+                    System.out.println("[!] " + melyikVarazslat + " megvasarolva!");
+                    sikeres = true;
+                    kinek.arany -= kinek.varazslatok[3].ar;
+                }
+            }
+            case "varazsszarnyak" -> {
+                if (!kinek.varazslatok[4].rendelkezik && kinek.arany > kinek.varazslatok[4].ar) {
+                    kinek.varazslatok[4].setRendelkezik();
+                    System.out.println("[!] " + melyikVarazslat + " megvasarolva!");
+                    sikeres = true;
+                    kinek.arany -= kinek.varazslatok[4].ar;
+                }
+            }
         }
         if (sikeres) {
             GameManager.info("arany", kinek);
@@ -53,7 +69,7 @@ public abstract class Varazslat {
 
     public static void listVarazslatok(Jatekos kinek) {
         System.out.println("[~] Varazslatok: ");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < kinek.varazslatok.length; i++) {
             if (kinek.varazslatok[i].rendelkezik) {
                 switch (i) {
                     case 0 -> {
@@ -64,6 +80,12 @@ public abstract class Varazslat {
                     }
                     case 2 -> {
                         System.out.println("[~] Feltamasztas");
+                    }
+                    case 3 -> {
+                        System.out.println("[~] Armageddon");
+                    }
+                    case 4 -> {
+                        System.out.println("[~] Varazsszarnyak");
                     }
                 }
             }

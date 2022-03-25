@@ -116,13 +116,15 @@ public class GameManager {
         System.out.println("[~] villamcsapas - ar: 60 arany - mannakoltseg: 5 - hatas: egy kivalasztott ellenseges egysegre (varazsero * 30) sebzes okozasa");
         System.out.println("[~] tuzlabda - ar: 120 arany - mannakoltseg: 9 - hatas: egy kivalasztott mezo koruli 3x3-as teruleten levo osszes (sajat, illetve ellenseges) egysegre (varazsero * 20) sebzes okozasa");
         System.out.println("[~] feltamasztas - ar: 120 arany - mannakoltseg: 6 - hatas: egy kivalasztott sajat egyseg feltamasztasa, maximalis gyogyitas erteke (varazsero * 50)");
+        System.out.println("[~] armageddon - ar: 100 arany - mannakoltseg: 3 - hatas: minden egysegre (sajatra is) varazsero * 5 sebzes okozasa");
+        System.out.println("[~] varazsszarnyak - ar: 110 arany - mannakoltseg: 8 - hatas: egy egyseget akarmelyik ures mezore repit");
         System.out.print("[!] Valassz: ");
 
         String input = scanner.nextLine();
 
         while((!"TOVABB".equals(input))) {
 
-            if ("villamcsapas".equals(input) || "tuzlabda".equals(input) || "feltamasztas".equals(input) || "TODO".equals(input) || "TODO2".equals(input)) {
+            if ("villamcsapas".equals(input) || "tuzlabda".equals(input) || "feltamasztas".equals(input) || "armageddon".equals(input) || "varazsszarnyak".equals(input)) {
                 Varazslat.setVarazslatok(jatekos, input);
                 System.out.print("[!] Valassz: ");
             }
@@ -332,7 +334,12 @@ public class GameManager {
         Palya.mezoFoglal(convertKoordinata(9), convertKoordinata(12), "ijasz", szGep, Egyseg.resolveEgyseg("ijasz", szGep));
         Egyseg.setElhelyezettTrue("ijasz", szGep);
         System.out.println();
-        System.out.println("[~] Az ellenfel is elheyezte az egysegeit!");
+        System.out.println("[~] Az ellenfel is elhelyezte az egysegeit!");
+    }
+
+    public static void updateTudas(Jatekos jatekos, Jatekos szGep) {
+        jatekos.setManna(jatekos.jatekosHose.getTudas() * 10);
+        szGep.setManna(szGep.jatekosHose.getTudas() * 10);
     }
 
 }

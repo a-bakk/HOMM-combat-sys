@@ -9,14 +9,26 @@ public class Kor {
     private static Egyseg[] egysegLista;
     private static final Scanner scanner = new Scanner(System.in);
     private static String input;
+    private static int korCounter = 1;
 
     public static void ujKor(Jatekos jatekos, Jatekos szGep) {
         System.out.println();
-        System.out.println("[~] Uj kor kezdodott!");
+        System.out.println("[~] Uj kor kezdodott! Ez a(z) " + korCounter + ". kor!");
+        korCounter++;
         System.out.println();
 
         boolean jatekosHosAction = false, szGepHosAction = false;
         Jatekos[] lepesLista = feltoltLepesLista(jatekos, szGep);
+
+        for (int i = 0; i < lepesLista.length; i++) {
+            if (lepesLista[i] == jatekos) {
+                System.out.println((i+1) + ". lepes: jatekos; egyseg: " + Egyseg.egysegNev(jatekos, egysegLista[i]));
+            }
+            else {
+                System.out.println((i+1) + ". lepes: szamitogep; egyseg: " + Egyseg.egysegNev(szGep, egysegLista[i]));
+            }
+        }
+        System.out.println();
 
         for (int lepesIndex = 0; lepesIndex < lepesLista.length; lepesIndex++) {
 

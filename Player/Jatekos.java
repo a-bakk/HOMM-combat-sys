@@ -34,6 +34,8 @@ public class Jatekos {
         varazslatok[0] = new Tuzlabda();
         varazslatok[1] = new Villamcsapas();
         varazslatok[2] = new Feltamasztas();
+        varazslatok[3] = new Armageddon();
+        varazslatok[4] = new Varazsszarnyak();
 
         egysegek[0] = new Foldmuves();
         egysegek[1] = new Ijasz();

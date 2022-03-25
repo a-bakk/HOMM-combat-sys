@@ -24,6 +24,8 @@ public class Main {
         Palya jatekPalya = new Palya(); // csak statik methodusok vannak a palyaban
         Palya.setMezok();
 
+        GameManager.updateTudas(jatekos, szGep);
+
         Palya.paintPalya(jatekos, szGep);
         GameManager.taktikaiPhase(jatekos);
         Palya.paintPalya(jatekos, szGep);
