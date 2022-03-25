@@ -7,4 +7,8 @@ public class Villamcsapas extends Varazslat {
         this.rendelkezik = false;
     }
 
+    @Override
+    protected void kulonlegesHatas() {
+        //TODO
+    }
 }

@@ -33,6 +33,8 @@ public class Mezo {
     }
 
     public void resetMezo() {
+        this.kiBirtokolja = null;
+        this.tartalomEgyseg = null;
         this.foglalt = false;
         this.tartalom = " ------- ";
     }

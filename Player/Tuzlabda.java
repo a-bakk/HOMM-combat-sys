@@ -7,4 +7,8 @@ public class Tuzlabda extends Varazslat {
         this.ar = 120;
     }
 
+    @Override
+    protected void kulonlegesHatas() {
+        //TODO
+    }
 }

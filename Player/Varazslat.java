@@ -2,12 +2,13 @@ package Player;
 
 import GameManager.*;
 
-public class Varazslat {
+public abstract class Varazslat {
 
     protected int ar;
     protected int mannaKoltseg;
     protected boolean rendelkezik = false;
-    //TODO hatas
+
+    protected abstract void kulonlegesHatas();
 
     protected void setRendelkezik() {
         this.rendelkezik = true;
@@ -51,7 +52,7 @@ public class Varazslat {
     }
 
     public static void listVarazslatok(Jatekos kinek) {
-        System.out.println("[~] Ezekkel a varazslatokkal rendelkezel: ");
+        System.out.println("[~] Varazslatok: ");
         for (int i = 0; i < 3; i++) {
             if (kinek.varazslatok[i].rendelkezik) {
                 switch (i) {
@@ -68,5 +69,9 @@ public class Varazslat {
             }
         }
         System.out.println();
+    }
+
+    public void setRendelkezik(boolean rendelkezik) {
+        this.rendelkezik = rendelkezik;
     }
 }

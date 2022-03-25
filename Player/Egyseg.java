@@ -2,7 +2,7 @@ package Player;
 
 import GameManager.GameManager;
 
-public class Egyseg {
+public abstract class Egyseg {
 
     protected int ar;
     protected int minSebzes;
@@ -173,7 +173,7 @@ public class Egyseg {
         return null;
     }
 
-    public void tamadas() {
+    public void tamadas() { //TODO make abstract
 
     }
 
@@ -185,4 +185,7 @@ public class Egyseg {
 
     }
 
+    public void setHanyVan(int hanyVan) {
+        this.hanyVan = hanyVan;
+    }
 }

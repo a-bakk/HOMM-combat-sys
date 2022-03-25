@@ -48,4 +48,32 @@ public class Jatekos {
     public boolean isSzamitoGep() {
         return szamitoGep;
     }
+
+    public void setArany(int arany) {
+        this.arany = arany;
+    }
+
+    public void setManna(int manna) {
+        this.manna = manna;
+    }
+
+    public void setTulajdonsagAr(int tulajdonsagAr) {
+        this.tulajdonsagAr = tulajdonsagAr;
+    }
+
+    public void setSzamitoGep(boolean szamitoGep) {
+        this.szamitoGep = szamitoGep;
+    }
+
+    public void setJatekosHose(Hos jatekosHose) {
+        this.jatekosHose = jatekosHose;
+    }
+
+    public void setVarazslatok(Varazslat[] varazslatok) {
+        this.varazslatok = varazslatok;
+    }
+
+    public void setEgysegek(Egyseg[] egysegek) {
+        this.egysegek = egysegek;
+    }
 }

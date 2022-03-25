@@ -61,8 +61,6 @@ public class GameManager {
             System.out.println();
         }
 
-        // TODO enemy statjai
-
     }
 
     private static void listTulajdonsagok(Jatekos kinek) {
@@ -221,7 +219,6 @@ public class GameManager {
             System.out.print("[!] X koordinata (melyik sor): ");
             input = scanner.nextLine();
 
-            //TODO ide meg egy while, hogy szabad-e a mezo
             boolean szabadMezo = false;
             while(!szabadMezo) {
 
@@ -259,7 +256,6 @@ public class GameManager {
                         input = scanner.nextLine();
                     }
                 }
-                // TODO elhelyezett egysegnek elhelyezett boolean false
 
                 if (!Palya.foglalt(convertKoordinata(koordX), convertKoordinata(koordY))) {
                     Palya.mezoFoglal(convertKoordinata(koordX), convertKoordinata(koordY), helyezendoTipus, jatekos, Egyseg.resolveEgyseg(helyezendoTipus, jatekos));
@@ -276,10 +272,63 @@ public class GameManager {
 
             }
         }
-        //TODO fuggveny, hogy tenylegesen helyezze el, elhelyezes utan paintPalya()
     }
 
     public static int convertKoordinata(int koordinata) {
         return --koordinata;
     }
+
+    public static void feltoltSzGep (Jatekos szGep) {
+
+        szGep.setArany(1000);
+
+        szGep.jatekosHose.setTamadas(4);
+        szGep.setArany(szGep.getArany() - (5 + 6 + 7));
+        szGep.jatekosHose.setTudas(5);
+        szGep.setArany(szGep.getArany() - (8 + 9 + 10 + 11));
+        szGep.jatekosHose.setMoral(2);
+        szGep.setArany(szGep.getArany() - 13);
+
+        szGep.varazslatok[0].setRendelkezik(true);
+        szGep.setArany(szGep.getArany() - 120);
+        szGep.varazslatok[1].setRendelkezik(true);
+        szGep.setArany(szGep.getArany() - 60);
+        szGep.varazslatok[2].setRendelkezik(true);
+        szGep.setArany(szGep.getArany() - 120);
+
+        szGep.egysegek[0].setHanyVan(106);
+        szGep.setArany(szGep.getArany() - 212);
+        szGep.egysegek[1].setHanyVan(29);
+        szGep.setArany(szGep.getArany() - 174);
+        szGep.egysegek[2].setHanyVan(15);
+        szGep.setArany(szGep.getArany() - 225);
+
+    }
+
+    public static void szGepStats(Jatekos szGep) {
+        System.out.println();
+        System.out.println("[~] Az szamitogep statjai jelenleg: ");
+        System.out.println("[~] Tulajdonsagok: ");
+        listTulajdonsagok(szGep);
+        Varazslat.listVarazslatok(szGep);
+        System.out.println("[~] Egysegek: ");
+        Egyseg.listEgysegek(szGep);
+        System.out.print("[!] A tovabblepeshez a TOVABB parancsot hasznald: ");
+        String input = scanner.nextLine();
+        while((!"TOVABB".equals(input))) {
+            System.out.print("[!] Hibas input! Tovabblepni a TOVABB paranccsal tudsz: ");
+            input = scanner.nextLine();
+        }
+    }
+
+    public static void elhelyezSzGep (Jatekos szGep) {
+        Palya.mezoFoglal(convertKoordinata(2), convertKoordinata(12), "griff", szGep, Egyseg.resolveEgyseg("griff", szGep));
+        Egyseg.setElhelyezettTrue("griff", szGep);
+        Palya.mezoFoglal(convertKoordinata(5), convertKoordinata(11), "foldmuves", szGep, Egyseg.resolveEgyseg("foldmuves", szGep));
+        Egyseg.setElhelyezettTrue("foldmuves", szGep);
+        Palya.mezoFoglal(convertKoordinata(9), convertKoordinata(12), "ijasz", szGep, Egyseg.resolveEgyseg("ijasz", szGep));
+        Egyseg.setElhelyezettTrue("ijasz", szGep);
+        System.out.println("[~] Az ellenfel is elheyezte az egysegeit!");
+    }
+
 }

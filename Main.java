@@ -15,13 +15,19 @@ public class Main {
         GameManager.varazslatPhase(jatekos);
         GameManager.egysegPhase(jatekos);
 
+        GameManager.feltoltSzGep(szGep);
+
         GameManager.info("all", jatekos);
+        GameManager.szGepStats(szGep);
 
         Palya jatekPalya = new Palya(); // csak statik methodusok vannak a palyaban
         Palya.setMezok();
 
         Palya.paintPalya(jatekos, szGep);
         GameManager.taktikaiPhase(jatekos);
+        Palya.paintPalya(jatekos, szGep);
+
+        GameManager.elhelyezSzGep(szGep);
         Palya.paintPalya(jatekos, szGep);
 
     }
