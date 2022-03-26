@@ -90,29 +90,47 @@ public class Kor {
                             }
 
 
-                            //TODO varazslasok
                             switch (varazslat) {
                                 case "tuzlabda" -> {
+                                    System.out.println();
                                     System.out.println(jatekos.varazslatok[0].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                     System.out.println();
-                                    Palya.repaintPalya(jatekos, szGep);
-                                    System.out.println();
+                                    jatekosHosAction = true;
                                 }
                                 case "villamcsapas" -> {
-
+                                    if (Palya.getMezok()[convertKoordinata(koordX)][convertKoordinata(koordY)].getKiBirtokolja() == szGep) {
+                                        System.out.println();
+                                        System.out.println(jatekos.varazslatok[1].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
+                                        System.out.println();
+                                        jatekosHosAction = true;
+                                    }
+                                    else {
+                                        System.out.println("[~] Az altalad valasztott mezon nincs ellenseges egyseg, a villamcsapas sikertelen!");
+                                    }
                                 }
                                 case "feltamasztas" -> {
-
+                                    if (Palya.getMezok()[convertKoordinata(koordX)][convertKoordinata(koordY)].getKiBirtokolja() == jatekos) {
+                                        System.out.println();
+                                        System.out.println(jatekos.varazslatok[2].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
+                                        System.out.println();
+                                        jatekosHosAction = true;
+                                    }
+                                    else {
+                                        System.out.println("[~] Az altalad valasztott mezon nem a sajat egyseged van, a feltamasztas sikertelen!");
+                                    }
                                 }
                                 case "armageddon" -> {
-
+                                    System.out.println();
+                                    System.out.println(jatekos.varazslatok[3].kulonlegesHatas(jatekos, szGep, 0, 0));
+                                    System.out.println();
+                                    jatekosHosAction = true;
                                 }
                                 case "varazsszarnyak" -> {
-
+                                    System.out.println("varazsszarnyak");
+                                    jatekosHosAction = true;
                                 }
                             }
 
-                            jatekosHosAction = true;
                             break;
                         }
                         else {

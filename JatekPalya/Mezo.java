@@ -15,6 +15,7 @@ public class Mezo {
         this.tartalom = " --------- ";
         this.tartalomEgyseg = null;
         this.milyenEgyseg = null;
+        this.kiBirtokolja = null;
     }
 
     public void setFoglalt(boolean foglalt) {

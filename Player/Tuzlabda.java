@@ -50,7 +50,7 @@ public class Tuzlabda extends Varazslat {
             else {
                 Palya.getMezok()[koordX][koordY].getTartalomEgyseg().setHanyVan(Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getOsszEletero() / Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getEletero());
             }
-            if (Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getOsszEletero() == 0) {
+            if (Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getOsszEletero() <= 0) {
                 Palya.getMezok()[koordX][koordY].getTartalomEgyseg().setHanyVan(0);
             }
         }

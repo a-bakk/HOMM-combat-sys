@@ -350,4 +350,11 @@ public class GameManager {
         }
     }
 
+    public static void updateMaxEletero(Jatekos jatekos, Jatekos szGep) {
+        for (int i = 0; i < jatekos.egysegek.length; i++) {
+            jatekos.egysegek[i].setMaxEletero(jatekos.egysegek[i].getOsszEletero());
+            szGep.egysegek[i].setMaxEletero(szGep.egysegek[i].getOsszEletero());
+        }
+    }
+
 }

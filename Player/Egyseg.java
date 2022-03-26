@@ -14,6 +14,7 @@ public abstract class Egyseg {
     protected int hanyVan; //adott egysegbol hany van
     protected boolean elhelyezett;
     protected int osszEletero;
+    protected int maxEletero;
 
     public static boolean buyEgysegek(Jatekos kinek, String milyenEgyseg, int hanyat) {
         System.out.println();
@@ -275,10 +276,6 @@ public abstract class Egyseg {
 
     }
 
-    public void setHanyVan(int hanyVan) {
-        this.hanyVan = hanyVan;
-    }
-
     //region getters
 
     public int getAr() {
@@ -317,14 +314,30 @@ public abstract class Egyseg {
         return elhelyezett;
     }
 
+    public int getOsszEletero() {
+        return osszEletero;
+    }
+
+    public int getMaxEletero() {
+        return maxEletero;
+    }
+
     //endregion
 
+    //region setters
 
     public void setOsszEletero(int osszEletero) {
         this.osszEletero = osszEletero;
     }
 
-    public int getOsszEletero() {
-        return osszEletero;
+    public void setMaxEletero(int maxEletero) {
+        this.maxEletero = maxEletero;
     }
+
+    public void setHanyVan(int hanyVan) {
+        this.hanyVan = hanyVan;
+    }
+
+    //endregion
+
 }

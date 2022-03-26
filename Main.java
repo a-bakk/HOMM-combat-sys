@@ -26,6 +26,7 @@ public class Main {
 
         GameManager.updateTudas(jatekos, szGep);
         GameManager.updateOsszEletero(jatekos, szGep);
+        GameManager.updateMaxEletero(jatekos, szGep);
 
         Palya.paintPalya(jatekos, szGep);
         GameManager.taktikaiPhase(jatekos);
