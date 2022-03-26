@@ -93,6 +93,47 @@ public abstract class Varazslat {
         System.out.println();
     }
 
+    public static int countVarazslatok(Jatekos kinek) {
+        int res = 0;
+        for (int i = 0; i < kinek.varazslatok.length; i++) {
+            if (kinek.varazslatok[i].rendelkezik) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    public static boolean vanVarazslat(Jatekos kinek, String milyenVarazslat) {
+        switch (milyenVarazslat) {
+            case "tuzlabda" -> {
+                if (kinek.varazslatok[0].rendelkezik) {
+                    return true;
+                }
+            }
+            case "villamcsapas" -> {
+                if (kinek.varazslatok[1].rendelkezik) {
+                    return true;
+                }
+            }
+            case "feltamasztas" -> {
+                if (kinek.varazslatok[2].rendelkezik) {
+                    return true;
+                }
+            }
+            case "armageddon" -> {
+                if (kinek.varazslatok[3].rendelkezik) {
+                    return true;
+                }
+            }
+            case "varazsszarnyak" -> {
+                if (kinek.varazslatok[4].rendelkezik) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void setRendelkezik(boolean rendelkezik) {
         this.rendelkezik = rendelkezik;
     }

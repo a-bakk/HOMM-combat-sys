@@ -202,6 +202,7 @@ public class GameManager {
     }
 
     public static void taktikaiPhase(Jatekos jatekos) {
+        System.out.println();
         System.out.println("[!] Helyezd el az egysegeidet, az elso ket oszlop all rendelkezesedre!");
         System.out.println("[~] Ezeket az egysegeket kell elhelyezd: ");
         Egyseg.listEgysegek(jatekos);
@@ -340,6 +341,13 @@ public class GameManager {
     public static void updateTudas(Jatekos jatekos, Jatekos szGep) {
         jatekos.setManna(jatekos.jatekosHose.getTudas() * 10);
         szGep.setManna(szGep.jatekosHose.getTudas() * 10);
+    }
+
+    public static void updateOsszEletero(Jatekos jatekos, Jatekos szGep) {
+        for (int i = 0; i < jatekos.egysegek.length; i++) {
+            jatekos.egysegek[i].setOsszEletero(jatekos.egysegek[i].getEletero() * jatekos.egysegek[i].getHanyVan());
+            szGep.egysegek[i].setOsszEletero(szGep.egysegek[i].getEletero() * szGep.egysegek[i].getHanyVan());
+        }
     }
 
 }

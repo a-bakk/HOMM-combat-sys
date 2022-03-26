@@ -44,51 +44,15 @@ public class Kor {
 
                         if ("tamadas".equals(input)) {
 
-                            int koordX = 0, koordY = 0;
+                            int koordX = chooseX("[!] Melyik egyseget szeretned megtamadni a hosoddel?");
 
-                            System.out.println("[!] Melyik egyseget szeretned megtamadni a hosoddel?");
-                            System.out.print("[!] X koordinata (melyik sor): ");
-                            input = scanner.nextLine();
-
-                            boolean szamotkap = false;
-                            while (!szamotkap) {
-                                try {
-                                    koordX = Math.abs(Integer.parseInt(input));
-                                    if ((koordX - 1) >= 0 && (koordX - 1) <= 9) {
-                                        szamotkap = true;
-                                    } else {
-                                        System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
-                                        input = scanner.nextLine();
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.out.print("[!] Hibas input! Szamot adj meg: ");
-                                    input = scanner.nextLine();
-                                }
-                            }
-
-                            System.out.print("[!] Y koordinata (melyik oszlop): ");
-                            input = scanner.nextLine();
-
-                            szamotkap = false;
-                            while (!szamotkap) {
-                                try {
-                                    koordY = Math.abs(Integer.parseInt(input));
-                                    if ((koordY - 1) >= 0 && (koordY - 1) <= 11) {
-                                        szamotkap = true;
-                                    } else {
-                                        System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
-                                        input = scanner.nextLine();
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.out.print("[!] Hibas input! Szamot adj meg: ");
-                                    input = scanner.nextLine();
-                                }
-                            }
+                            int koordY = chooseY();
 
                             Egyseg celpont = Palya.chooseMezoEnemyLetezik(convertKoordinata(koordX), convertKoordinata(koordY), jatekos, szGep);
                             if (celpont != null) {
-                                System.out.println("A hos tamadott!");
-                                //TODO tamad a hos
+                                System.out.println();
+                                System.out.println(Egyseg.tisztaHosSebzestKap(jatekos, szGep, celpont));
+                                System.out.println();
                                 jatekosHosAction = true;
                                 break;
                             }
@@ -99,8 +63,32 @@ public class Kor {
 
                         }
                         else if ("varazslas".equals(input)) {
-                            //TODO Hos varazslas
-                            System.out.println("A hos varazsolt!");
+                            String varazslat;
+                            if (Varazslat.countVarazslatok(jatekos) == 0) {
+                                System.out.println("[!] Nem rendelkezel egy varazslattal sem!");
+                                break;
+                            }
+                            else {
+                                System.out.print("[!] Melyik varazslatot szeretned hasznalni: ");
+                                varazslat = scanner.nextLine();
+                                while(true) {
+                                    if ("villamcsapas".equals(varazslat) || "tuzlabda".equals(varazslat) || "feltamasztas".equals(varazslat) || "armageddon".equals(varazslat) || "varazsszarnyak".equals(varazslat)) {
+                                        if (Varazslat.vanVarazslat(jatekos, varazslat)) {
+                                            break;
+                                        }
+                                    }
+                                    System.out.print("[!] Hibas input vagy nem rendelkezel ezzel a varazslattal! Adj meg helyes erteket: "); //else
+                                    varazslat = scanner.nextLine();
+                                }
+                            }
+
+                            int koordX = chooseX("[!] Melyik egysegen/mezon szeretned hasznalni a varazslatot?");
+
+                            int koordY = chooseY();
+
+                            //TODO varazslasok
+                            System.out.println(varazslat);
+
                             jatekosHosAction = true;
                             break;
                         }
@@ -201,6 +189,53 @@ public class Kor {
             if (szGep.egysegek[i].getHanyVan() != 0) res++;
         }
         return res;
+    }
+
+    public static int chooseX(String elsoSor) {
+        int koordX = 0;
+        System.out.println(elsoSor);
+        System.out.print("[!] X koordinata (melyik sor): ");
+        input = scanner.nextLine();
+
+        boolean szamotkap = false;
+        while (!szamotkap) {
+            try {
+                koordX = Math.abs(Integer.parseInt(input));
+                if ((koordX - 1) >= 0 && (koordX - 1) <= 9) {
+                    szamotkap = true;
+                } else {
+                    System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
+                    input = scanner.nextLine();
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("[!] Hibas input! Szamot adj meg: ");
+                input = scanner.nextLine();
+            }
+        }
+        return koordX;
+    }
+
+    public static int chooseY() {
+        int koordY = 0;
+        System.out.print("[!] Y koordinata (melyik oszlop): ");
+        input = scanner.nextLine();
+
+        boolean szamotkap = false;
+        while (!szamotkap) {
+            try {
+                koordY = Math.abs(Integer.parseInt(input));
+                if ((koordY - 1) >= 0 && (koordY - 1) <= 11) {
+                    szamotkap = true;
+                } else {
+                    System.out.print("[!] A koordinata nem megfelelo, probalkozz ujra: ");
+                    input = scanner.nextLine();
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("[!] Hibas input! Szamot adj meg: ");
+                input = scanner.nextLine();
+            }
+        }
+        return koordY;
     }
 
 }

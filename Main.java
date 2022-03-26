@@ -25,6 +25,7 @@ public class Main {
         Palya.setMezok();
 
         GameManager.updateTudas(jatekos, szGep);
+        GameManager.updateOsszEletero(jatekos, szGep);
 
         Palya.paintPalya(jatekos, szGep);
         GameManager.taktikaiPhase(jatekos);

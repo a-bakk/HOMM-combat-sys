@@ -13,6 +13,7 @@ public abstract class Egyseg {
     protected int maxSebzes;
     protected int hanyVan; //adott egysegbol hany van
     protected boolean elhelyezett;
+    protected int osszEletero;
 
     public static boolean buyEgysegek(Jatekos kinek, String milyenEgyseg, int hanyat) {
         System.out.println();
@@ -172,7 +173,6 @@ public abstract class Egyseg {
     public static boolean vanEgyseg(Jatekos kinek, String milyenEgyseg) {
         for (int i = 0; i < kinek.egysegek.length; i++) {
             if ("foldmuves".equals(milyenEgyseg) || "ijasz".equals(milyenEgyseg) || "griff".equals(milyenEgyseg) || "hobgoblin".equals(milyenEgyseg) || "demon".equals(milyenEgyseg)) {
-                // TODO teljesen folos for
                 switch (milyenEgyseg) {
                     case "foldmuves" -> {
                         if (kinek.egysegek[0].hanyVan != 0 && !kinek.egysegek[0].elhelyezett) {
@@ -244,6 +244,18 @@ public abstract class Egyseg {
         return null;
     }
 
+    public static String tisztaHosSebzestKap(Jatekos tamado, Jatekos szenvedo, Egyseg melyikEgyseg) {
+        int teljesSebzes = tamado.jatekosHose.getTamadas() * 10;
+        melyikEgyseg.setOsszEletero(melyikEgyseg.getOsszEletero() - teljesSebzes);
+        if (melyikEgyseg.getOsszEletero() == 0) {
+            return "[~] A tamadas sikeres, az ellenfel egysege meghalt!";
+        }
+        else {
+            return "[~] A tamadas sikeres! Az ellenfelnek maradt " + melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero() + " teljes eletereju egysege es meg egy "
+                    + melyikEgyseg.getOsszEletero() % melyikEgyseg.getEletero() + " eletereju egysege!";
+        }
+    }
+
     public void tamadas() { //TODO make abstract
 
     }
@@ -299,4 +311,13 @@ public abstract class Egyseg {
     }
 
     //endregion
+
+
+    public void setOsszEletero(int osszEletero) {
+        this.osszEletero = osszEletero;
+    }
+
+    public int getOsszEletero() {
+        return osszEletero;
+    }
 }
