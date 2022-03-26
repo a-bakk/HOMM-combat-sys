@@ -1,6 +1,7 @@
 package Player;
 
 import GameManager.GameManager;
+import JatekPalya.Palya;
 
 public abstract class Egyseg {
 
@@ -262,6 +263,46 @@ public abstract class Egyseg {
             return "[~] A tamadas sikeres! Az ellenfelnek maradt " + melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero() + " teljes eletereju egysege es meg egy "
                     + melyikEgyseg.getOsszEletero() % melyikEgyseg.getEletero() + " eletereju egysege!";
         }
+    }
+
+    public static boolean szomszedosEllenfel(Jatekos tamado, Jatekos szenvedo, int koordX, int koordY, int tamadX, int tamadY) {
+
+        if (Palya.getMezok()[tamadX][tamadY].getKiBirtokolja() == szenvedo && Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getEletero() != 0) {
+            if (koordX - 1 >= 0 && koordY - 1 >= 0) {
+                if (koordX - 1 == tamadX && koordY - 1 == tamadY)
+                    return true;
+            }
+            if (koordX - 1 >= 0) {
+                if (koordX - 1 == tamadX && koordY == tamadY)
+                    return true;
+            }
+            if (koordX - 1 >= 0 && koordY + 1 <= 11) {
+                if (koordX - 1 == tamadX && koordY + 1 == tamadY)
+                    return true;
+            }
+            if (koordY - 1 >= 0) {
+                if (koordX == tamadX && koordY - 1 == tamadY)
+                    return true;
+            }
+            if (koordY + 1 <= 11) {
+                if (koordX == tamadX && koordY + 1 == tamadY)
+                    return true;
+            }
+            if (koordX + 1 <= 9 && koordY - 1 >= 0) {
+                if (koordX + 1 == tamadX && koordY - 1 == tamadY)
+                    return true;
+            }
+            if (koordX + 1 <= 9) {
+                if (koordX + 1 == tamadX && koordY == tamadY)
+                    return true;
+            }
+            if (koordX + 1 <= 9 && koordY + 1 <= 11) {
+                if (koordX + 1 == tamadX && koordY + 1 == tamadY)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     public void tamadas() { //TODO make abstract

@@ -202,4 +202,23 @@ public class Palya {
     public static Mezo[][] getMezok() {
         return mezok;
     }
+
+    public static int getIndexX(Egyseg egyseg) {
+        for (int i = 0; i < PALYAMERET_S; i++) {
+            for (int j = 0; j < PALYAMERET_O; j++) {
+                if (mezok[i][j].getTartalomEgyseg() == egyseg) return i;
+            }
+        }
+        return 0;
+    }
+
+    public static int getIndexY(Egyseg egyseg) {
+        for (int i = 0; i < PALYAMERET_S; i++) {
+            for (int j = 0; j < PALYAMERET_O; j++) {
+                if (mezok[i][j].getTartalomEgyseg() == egyseg) return j;
+            }
+        }
+        return 0;
+    }
+
 }

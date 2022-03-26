@@ -56,4 +56,5 @@ public class Mezo {
         this.tartalom = " --------- ";
         this.milyenEgyseg = null;
     }
+
 }

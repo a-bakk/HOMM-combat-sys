@@ -126,8 +126,25 @@ public class Kor {
                                     jatekosHosAction = true;
                                 }
                                 case "varazsszarnyak" -> {
-                                    System.out.println("varazsszarnyak");
-                                    jatekosHosAction = true;
+                                    int jelenlegiX = chooseX("Melyik egysegedet szeretned elrepiteni?");
+                                    int jelenlegiY = chooseY();
+                                    int hovaX = chooseX("Hova szeretned helyezni az egyseget?");
+                                    int hovaY = chooseY();
+
+                                    if (Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja() == jatekos && !Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].isFoglalt()) {
+                                        Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].setMezo(
+                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getMilyenEgyseg(),
+                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja(),
+                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getTartalomEgyseg());
+                                        Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].resetMezo();
+                                        jatekosHosAction = true;
+                                        System.out.println();
+                                        Palya.repaintPalya(jatekos, szGep);
+                                        System.out.println();
+                                    }
+                                    else {
+                                        System.out.println("[~] Az altalad valasztott egyseg nem a tied, vagy nem ures mezore probaltad helyezni!");
+                                    }
                                 }
                             }
 
@@ -149,13 +166,22 @@ public class Kor {
                         break;
                     }
                     else if ("varakozas".equals(input)) {
-                        //TODO egyseg varakozas
-                        System.out.println("Az egyseg varakozott!");
+                        System.out.println("[!] Az egyseg varakozott!");
                         break;
                     }
                     else if ("tamadas".equals(input)) {
-                        //TODO egyseg tamadas
-                        System.out.println("Az egyseg tamadott!");
+                        //Egyseglistaban lepesIndex - ha eletereje nem nulla PERSZE!!!!
+                        //TODO kulon kezelni ijaszt
+                        int sajatX = Palya.getIndexX(egysegLista[lepesIndex]); // konvertalt koordinatak
+                        int sajatY = Palya.getIndexY(egysegLista[lepesIndex]);
+                        int tamadX = chooseX("Melyik egyseget szeretned megtamadni?");
+                        int tamadY = chooseY();
+                        if (Egyseg.szomszedosEllenfel(jatekos, szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
+                            System.out.println("Tamadhato az egyseg!");
+                        }
+                        else {
+                            System.out.println("Nem tamadhato!");
+                        }
                         break;
                     }
                     else {
@@ -183,7 +209,7 @@ public class Kor {
         int[] resEgysegSzamLista = new int[hanyLepes(jatekos, szGep)]; // ez alapjan szamolok
         /* egyseglista feltoltese a ket jatekos egysegeivel + kezdemenyezeseikkel, a sorrend mindegy */
         for (int i = 0; i < jatekos.egysegek.length; i++) {
-            if (jatekos.egysegek[i].getHanyVan() != 0) {
+            if (jatekos.egysegek[i].getHanyVan() != 0) { //TODO ha eletero 0 ne tegye bele
                 resEgysegSzamLista[segedLepesIndex] = jatekos.egysegek[i].getKezdemenyezes() + jatekos.jatekosHose.getMoral();
                 egysegLista[segedLepesIndex] = jatekos.egysegek[i];
                 resLepesLista[segedLepesIndex] = jatekos;
