@@ -80,4 +80,8 @@ public class Jatekos {
     public void setEgysegek(Egyseg[] egysegek) {
         this.egysegek = egysegek;
     }
+
+    public Egyseg[] getEgysegek() {
+        return egysegek;
+    }
 }

@@ -19,6 +19,21 @@ public class Palya {
         }
     }
 
+    public static void updateMezok() {
+        for (int i = 0; i < PALYAMERET_S; i++) {
+            for (int j = 0; j< PALYAMERET_O; j++) {
+                if (mezok[i][j].isFoglalt()) {
+                    mezok[i][j].setMezo(mezok[i][j].getMilyenEgyseg(), mezok[i][j].getKiBirtokolja(), mezok[i][j].getTartalomEgyseg());
+                }
+            }
+        }
+    }
+
+    public static void repaintPalya(Jatekos jatekos1, Jatekos jatekos2) {
+        updateMezok();
+        paintPalya(jatekos1, jatekos2);
+    }
+
     public static boolean foglalt(int koordX, int koordY) {
         return mezok[koordX][koordY].isFoglalt();
     }
@@ -44,10 +59,10 @@ public class Palya {
         return null;
     }
 
-    public static void hosTamad(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
+    /*public static void hosTamad(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
         Egyseg target = mezok[koordX][koordY].getTartalomEgyseg();
-        //TODO hanyEgyseg-et is kell modositani
-    }
+        //
+    }*/
 
     public static void paintPalya(Jatekos jatekos1, Jatekos jatekos2) {
         final String ures = "               ";
@@ -184,4 +199,7 @@ public class Palya {
 
     }
 
+    public static Mezo[][] getMezok() {
+        return mezok;
+    }
 }

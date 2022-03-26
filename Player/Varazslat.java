@@ -8,7 +8,7 @@ public abstract class Varazslat {
     protected int mannaKoltseg;
     protected boolean rendelkezik = false;
 
-    protected abstract void kulonlegesHatas();
+    public abstract String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY);
 
     protected void setRendelkezik() {
         this.rendelkezik = true;

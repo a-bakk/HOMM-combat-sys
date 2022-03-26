@@ -9,7 +9,8 @@ public class Villamcsapas extends Varazslat {
     }
 
     @Override
-    protected void kulonlegesHatas() {
+    public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) {
         //TODO
+        return null;
     }
 }

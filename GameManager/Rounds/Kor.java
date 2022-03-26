@@ -73,7 +73,7 @@ public class Kor {
                                 varazslat = scanner.nextLine();
                                 while(true) {
                                     if ("villamcsapas".equals(varazslat) || "tuzlabda".equals(varazslat) || "feltamasztas".equals(varazslat) || "armageddon".equals(varazslat) || "varazsszarnyak".equals(varazslat)) {
-                                        if (Varazslat.vanVarazslat(jatekos, varazslat)) {
+                                        if (Varazslat.vanVarazslat(jatekos, varazslat)) { // TODO van eleg mana?!?!?!
                                             break;
                                         }
                                     }
@@ -82,12 +82,35 @@ public class Kor {
                                 }
                             }
 
-                            int koordX = chooseX("[!] Melyik egysegen/mezon szeretned hasznalni a varazslatot?");
+                            int koordX = 0, koordY = 0;
 
-                            int koordY = chooseY();
+                            if (!"armageddon".equals(varazslat) && !"varazsszarnyak".equals(varazslat)) {
+                                koordX = chooseX("[!] Melyik egysegen/mezon szeretned hasznalni a varazslatot?");
+                                koordY = chooseY();
+                            }
+
 
                             //TODO varazslasok
-                            System.out.println(varazslat);
+                            switch (varazslat) {
+                                case "tuzlabda" -> {
+                                    System.out.println(jatekos.varazslatok[0].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
+                                    System.out.println();
+                                    Palya.repaintPalya(jatekos, szGep);
+                                    System.out.println();
+                                }
+                                case "villamcsapas" -> {
+
+                                }
+                                case "feltamasztas" -> {
+
+                                }
+                                case "armageddon" -> {
+
+                                }
+                                case "varazsszarnyak" -> {
+
+                                }
+                            }
 
                             jatekosHosAction = true;
                             break;
@@ -103,7 +126,7 @@ public class Kor {
                 input = scanner.nextLine();
                 while(true) {
                     if ("mozgas".equals(input)) {
-                        //TODO egyseg tamadas
+                        //TODO egyseg mozgas
                         System.out.println("Az egyseg mozgott!");
                         break;
                     }
@@ -196,7 +219,6 @@ public class Kor {
         System.out.println(elsoSor);
         System.out.print("[!] X koordinata (melyik sor): ");
         input = scanner.nextLine();
-
         boolean szamotkap = false;
         while (!szamotkap) {
             try {

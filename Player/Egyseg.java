@@ -137,7 +137,7 @@ public abstract class Egyseg {
                 return " -" + valodiJatekos + "-" + kezdobetu + "-" + szam + "--- ";
             }
         }
-        return " ------- ";
+        return " --------- ";
     }
 
     public static void listEgysegek(Jatekos kinek) {
@@ -247,10 +247,17 @@ public abstract class Egyseg {
     public static String tisztaHosSebzestKap(Jatekos tamado, Jatekos szenvedo, Egyseg melyikEgyseg) {
         int teljesSebzes = tamado.jatekosHose.getTamadas() * 10;
         melyikEgyseg.setOsszEletero(melyikEgyseg.getOsszEletero() - teljesSebzes);
-        if (melyikEgyseg.getOsszEletero() == 0) {
+        if (melyikEgyseg.getOsszEletero() <= 0) {
+            melyikEgyseg.setHanyVan(0);
             return "[~] A tamadas sikeres, az ellenfel egysege meghalt!";
         }
         else {
+            if (melyikEgyseg.getOsszEletero() % melyikEgyseg.getEletero() != 0) {
+                melyikEgyseg.setHanyVan(melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero() + 1);
+            }
+            else {
+                melyikEgyseg.setHanyVan(melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero());
+            }
             return "[~] A tamadas sikeres! Az ellenfelnek maradt " + melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero() + " teljes eletereju egysege es meg egy "
                     + melyikEgyseg.getOsszEletero() % melyikEgyseg.getEletero() + " eletereju egysege!";
         }

@@ -8,11 +8,13 @@ public class Mezo {
     private String tartalom;
     private Egyseg tartalomEgyseg;
     private Jatekos kiBirtokolja;
+    private String milyenEgyseg;
 
     public Mezo() {
         this.foglalt = false;
         this.tartalom = " --------- ";
         this.tartalomEgyseg = null;
+        this.milyenEgyseg = null;
     }
 
     public void setFoglalt(boolean foglalt) {
@@ -21,7 +23,7 @@ public class Mezo {
 
     public void setTartalom(String tartalom) { this.tartalom = tartalom; }
 
-    public boolean isFoglalt() { return this. foglalt; }
+    public boolean isFoglalt() { return this.foglalt; }
 
     public String getTartalom() { return this.tartalom; }
 
@@ -33,17 +35,24 @@ public class Mezo {
         return tartalomEgyseg;
     }
 
+    public String getMilyenEgyseg() {
+        return milyenEgyseg;
+    }
+
     public void setMezo(String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {
         this.kiBirtokolja = kinek;
         this.tartalom = Egyseg.toString(kinek, milyenEgyseg);
         this.tartalomEgyseg = melyikEgyseg;
         this.foglalt = true;
+        this.milyenEgyseg = milyenEgyseg;
     }
+
 
     public void resetMezo() {
         this.kiBirtokolja = null;
         this.tartalomEgyseg = null;
         this.foglalt = false;
-        this.tartalom = " ------- ";
+        this.tartalom = " --------- ";
+        this.milyenEgyseg = null;
     }
 }
