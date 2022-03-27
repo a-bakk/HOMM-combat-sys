@@ -3,7 +3,7 @@ package Player;
 import GameManager.GameManager;
 import JatekPalya.Palya;
 
-public abstract class Egyseg {
+public class Egyseg {
 
     protected int ar;
     protected int minSebzes;
@@ -305,16 +305,64 @@ public abstract class Egyseg {
         return false;
     }
 
-    public void tamadas() { //TODO make abstract
+    public String sebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
+        Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
+        int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
+        double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
+        double sajatVedekezes = kitTamad.jatekosHose.getVedekezes() * 0.05;
+        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
 
+        double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
+        if (Math.random() <= kritEsely) {
+            vegsoSebzes *= 2;
+            System.out.println("[~] Az egyseged kritikus sebzest is okoz!");
+        }
+
+        this.setOsszEletero(this.getOsszEletero() - vegsoSebzes);
+
+        if (this.getOsszEletero() % this.getEletero() != 0) {
+            this.setHanyVan(this.getOsszEletero() / this.getEletero() + 1);
+        }
+        else {
+            this.setHanyVan(this.getOsszEletero() / this.getEletero());
+        }
+        if (this.getOsszEletero() <= 0) {
+            this.setHanyVan(0);
+            return "[~] Sikeres tamadas es megolted az egyseget!";
+        }
+
+        return "[~] Sikeres tamadas!";
     }
 
-    public void mozgas() {
+    public String visszatamadasSebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
+        Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
+        int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
+        double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
+        double sajatVedekezes = kitTamad.jatekosHose.getVedekezes() * 0.05;
+        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
 
-    }
+        double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05; //TODO ez kerdeses, van-e kritikus sebzes visszatamadasnal?
+        if (Math.random() <= kritEsely) {
+            vegsoSebzes *= 2;
+            System.out.println("[~] A visszatamado egyseg kritikusan sebez!");
+        }
 
-    public void varakozas() {
+        vegsoSebzes /= 2;
 
+        this.setOsszEletero(this.getOsszEletero() - vegsoSebzes);
+
+        if (this.getOsszEletero() % this.getEletero() != 0) {
+            this.setHanyVan(this.getOsszEletero() / this.getEletero() + 1);
+        }
+        else {
+            this.setHanyVan(this.getOsszEletero() / this.getEletero());
+        }
+        if (this.getOsszEletero() <= 0) {
+            this.setHanyVan(0);
+            return "[~] Az egyseg visszatamadott es megolte az egysegedet!";
+        }
+
+        return "[~] Az egyseg visszatamadott!";
     }
 
     //region getters

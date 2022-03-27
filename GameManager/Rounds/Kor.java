@@ -54,6 +54,7 @@ public class Kor {
                                 System.out.println(Egyseg.tisztaHosSebzestKap(jatekos, szGep, celpont));
                                 System.out.println();
                                 jatekosHosAction = true;
+                                repaint(jatekos, szGep);
                                 break;
                             }
                             else {
@@ -95,6 +96,7 @@ public class Kor {
                                     System.out.println();
                                     System.out.println(jatekos.varazslatok[0].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                     System.out.println();
+                                    repaint(jatekos, szGep);
                                     jatekosHosAction = true;
                                 }
                                 case "villamcsapas" -> {
@@ -102,6 +104,7 @@ public class Kor {
                                         System.out.println();
                                         System.out.println(jatekos.varazslatok[1].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                         System.out.println();
+                                        repaint(jatekos, szGep);
                                         jatekosHosAction = true;
                                     }
                                     else {
@@ -113,6 +116,7 @@ public class Kor {
                                         System.out.println();
                                         System.out.println(jatekos.varazslatok[2].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                         System.out.println();
+                                        repaint(jatekos, szGep);
                                         jatekosHosAction = true;
                                     }
                                     else {
@@ -123,12 +127,13 @@ public class Kor {
                                     System.out.println();
                                     System.out.println(jatekos.varazslatok[3].kulonlegesHatas(jatekos, szGep, 0, 0));
                                     System.out.println();
+                                    repaint(jatekos, szGep);
                                     jatekosHosAction = true;
                                 }
                                 case "varazsszarnyak" -> {
-                                    int jelenlegiX = chooseX("Melyik egysegedet szeretned elrepiteni?");
+                                    int jelenlegiX = chooseX("[!] Melyik egysegedet szeretned elrepiteni?");
                                     int jelenlegiY = chooseY();
-                                    int hovaX = chooseX("Hova szeretned helyezni az egyseget?");
+                                    int hovaX = chooseX("[!] Hova szeretned helyezni az egyseget?");
                                     int hovaY = chooseY();
 
                                     if (Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja() == jatekos && !Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].isFoglalt()) {
@@ -138,9 +143,7 @@ public class Kor {
                                                 Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getTartalomEgyseg());
                                         Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].resetMezo();
                                         jatekosHosAction = true;
-                                        System.out.println();
-                                        Palya.repaintPalya(jatekos, szGep);
-                                        System.out.println();
+                                        repaint(jatekos, szGep);
                                     }
                                     else {
                                         System.out.println("[~] Az altalad valasztott egyseg nem a tied, vagy nem ures mezore probaltad helyezni!");
@@ -170,17 +173,22 @@ public class Kor {
                         break;
                     }
                     else if ("tamadas".equals(input)) {
-                        //Egyseglistaban lepesIndex - ha eletereje nem nulla PERSZE!!!!
                         //TODO kulon kezelni ijaszt
+                        if (egysegLista[lepesIndex].getEletero() <= 0) {
+                            System.out.println("[~] Az egyseged a kor kozben meghalt, nem tudsz tamadni vele!");
+                            break;
+                        }
                         int sajatX = Palya.getIndexX(egysegLista[lepesIndex]); // konvertalt koordinatak
                         int sajatY = Palya.getIndexY(egysegLista[lepesIndex]);
-                        int tamadX = chooseX("Melyik egyseget szeretned megtamadni?");
+                        int tamadX = chooseX("[!] Melyik egyseget szeretned megtamadni?");
                         int tamadY = chooseY();
                         if (Egyseg.szomszedosEllenfel(jatekos, szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
-                            System.out.println("Tamadhato az egyseg!");
+                            System.out.println(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().sebzestKap(szGep, jatekos, sajatX, sajatY)); // tamadas
+                            System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY))); // visszatamadas
+                            repaint(jatekos, szGep);
                         }
                         else {
-                            System.out.println("Nem tamadhato!");
+                            System.out.println("[!] Nem tamadhato az egyseg!");
                         }
                         break;
                     }
@@ -209,7 +217,7 @@ public class Kor {
         int[] resEgysegSzamLista = new int[hanyLepes(jatekos, szGep)]; // ez alapjan szamolok
         /* egyseglista feltoltese a ket jatekos egysegeivel + kezdemenyezeseikkel, a sorrend mindegy */
         for (int i = 0; i < jatekos.egysegek.length; i++) {
-            if (jatekos.egysegek[i].getHanyVan() != 0) { //TODO ha eletero 0 ne tegye bele
+            if (jatekos.egysegek[i].getHanyVan() != 0) { //TODO ha eletero 0 ne tegye bele;;; egy korben egy visszatamadas
                 resEgysegSzamLista[segedLepesIndex] = jatekos.egysegek[i].getKezdemenyezes() + jatekos.jatekosHose.getMoral();
                 egysegLista[segedLepesIndex] = jatekos.egysegek[i];
                 resLepesLista[segedLepesIndex] = jatekos;
@@ -302,6 +310,12 @@ public class Kor {
             }
         }
         return koordY;
+    }
+
+    public static void repaint(Jatekos jatekos, Jatekos szGep) {
+        System.out.println();
+        Palya.repaintPalya(jatekos, szGep);
+        System.out.println();
     }
 
 }

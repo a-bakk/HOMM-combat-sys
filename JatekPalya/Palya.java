@@ -2,7 +2,7 @@ package JatekPalya;
 
 import Player.*;
 import GameManager.*;
-
+//TODO 0 hp egysegeket nem kiirni
 public class Palya {
 
     private static final int PALYAMERET_S = 10;

@@ -357,4 +357,12 @@ public class GameManager {
         }
     }
 
+    public static int mathRandom(int min, int max) {
+        return min + (int)(Math.random() * ((max - min) + 1));
+    }
+
+    public static double applyTamadas(Jatekos jatekos, int alapSebzes) {
+        return (double)(alapSebzes * ((jatekos.jatekosHose.getTamadas() + 10.0) / 10.0));
+    }
+
 }
