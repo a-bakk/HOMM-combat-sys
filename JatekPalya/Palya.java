@@ -2,6 +2,10 @@ package JatekPalya;
 
 import Player.*;
 import GameManager.*;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 //TODO 0 hp egysegeket nem kiirni
 public class Palya {
 
@@ -219,6 +223,51 @@ public class Palya {
             }
         }
         return 0;
+    }
+
+    public static int palyaBreadthFirstSearch(Mezo[][] mezok, int startX, int startY, int vegX, int vegY) {
+
+        if (!mezok[startX][startY].isFoglalt() || mezok[vegX][vegY].isFoglalt())
+            return -1;
+
+        int[][] korbeJar = {{0,1},{0,-1},{1,0},{-1,0},{1,-1},{-1,1},{-1,-1},{1,1}};
+
+        boolean[][] voltMar = new boolean[PALYAMERET_S][PALYAMERET_O];
+        voltMar[startX][startY] = true;
+
+        LinkedList<int[]> varakozasiSor = new LinkedList<>(); //Queue
+        varakozasiSor.add(new int[]{startX, startY});
+
+        int szamolo = 1;
+
+        while (!varakozasiSor.isEmpty()) {
+
+            for (int i = 0; i < varakozasiSor.size(); i++) {
+
+                int elem[] = varakozasiSor.poll();
+                int elemX = elem != null ? elem[0] : 0;
+                int elemY = elem != null ? elem[1] : 0;
+
+                if (elemX == vegX && elemY == vegY) {
+                    return szamolo;
+                }
+
+                for (int j = 0; j < 8; j++) {
+
+                    int kovetkezoX = elemX + korbeJar[j][0];
+                    int kovetkezoY = elemY + korbeJar[j][1];
+
+                    if (kovetkezoX >= 0 && kovetkezoX < PALYAMERET_S && kovetkezoY >= 0 && kovetkezoY < PALYAMERET_O &&
+                        !voltMar[kovetkezoX][kovetkezoY] && !mezok[kovetkezoX][kovetkezoY].isFoglalt()) {
+
+                        varakozasiSor.add(new int[]{kovetkezoX, kovetkezoY});
+                        voltMar[kovetkezoX][kovetkezoY] = true;
+                    }
+                }
+            }
+            szamolo++;
+        }
+        return -1;
     }
 
 }

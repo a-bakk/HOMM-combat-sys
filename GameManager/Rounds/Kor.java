@@ -23,10 +23,10 @@ public class Kor {
 
         for (int i = 0; i < lepesLista.length; i++) {
             if (lepesLista[i] == jatekos) {
-                System.out.println((i+1) + ". lepes: jatekos; egyseg: " + Egyseg.egysegNev(jatekos, egysegLista[i]));
+                System.out.println("[~]" + (i+1) + ". lepes: jatekos; egyseg: " + Egyseg.egysegNev(jatekos, egysegLista[i]));
             }
             else {
-                System.out.println((i+1) + ". lepes: szamitogep; egyseg: " + Egyseg.egysegNev(szGep, egysegLista[i]));
+                System.out.println("[~]" + (i+1) + ". lepes: szamitogep; egyseg: " + Egyseg.egysegNev(szGep, egysegLista[i]));
             }
         }
         System.out.println();
@@ -135,13 +135,7 @@ public class Kor {
                                     int jelenlegiY = chooseY();
                                     int hovaX = chooseX("[!] Hova szeretned helyezni az egyseget?");
                                     int hovaY = chooseY();
-
-                                    if (Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja() == jatekos && !Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].isFoglalt()) {
-                                        Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].setMezo(
-                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getMilyenEgyseg(),
-                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja(),
-                                                Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getTartalomEgyseg());
-                                        Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].resetMezo();
+                                    if (mozgasMezore(jelenlegiX, jelenlegiY, hovaX, hovaY, jatekos)) {
                                         jatekosHosAction = true;
                                         repaint(jatekos, szGep);
                                     }
@@ -164,8 +158,21 @@ public class Kor {
                 input = scanner.nextLine();
                 while(true) {
                     if ("mozgas".equals(input)) {
-                        //TODO egyseg mozgas
-                        System.out.println("Az egyseg mozgott!");
+
+                        int startX = Palya.getIndexX(egysegLista[lepesIndex]); // konvertalt koordinatak
+                        int startY = Palya.getIndexY(egysegLista[lepesIndex]);
+                        int hovaX = chooseX("[!] Hova szeretnel lepni az egyseggel?");
+                        int hovaY = chooseY();
+
+                        if (Palya.palyaBreadthFirstSearch(Palya.getMezok(), startX, startY, convertKoordinata(hovaX), convertKoordinata(hovaY)) <= egysegLista[lepesIndex].getSebesseg()) {
+                            mozgasMezore(startX + 1, startY + 1, hovaX, hovaY, jatekos);
+                            System.out.println("[!] Sikeresen mozgott az egyseg!");
+                            repaint(jatekos, szGep);
+                        }
+                        else {
+                            System.out.println("[!] Nem tudsz oda lepni, az egyseg sebessege nem eleg magas!");
+                        }
+
                         break;
                     }
                     else if ("varakozas".equals(input)) {
@@ -217,13 +224,13 @@ public class Kor {
         int[] resEgysegSzamLista = new int[hanyLepes(jatekos, szGep)]; // ez alapjan szamolok
         /* egyseglista feltoltese a ket jatekos egysegeivel + kezdemenyezeseikkel, a sorrend mindegy */
         for (int i = 0; i < jatekos.egysegek.length; i++) {
-            if (jatekos.egysegek[i].getHanyVan() != 0) { //TODO ha eletero 0 ne tegye bele;;; egy korben egy visszatamadas
+            if (jatekos.egysegek[i].getHanyVan() != 0 && jatekos.egysegek[i].getOsszEletero() != 0) { //TODO egy korben egy visszatamadas
                 resEgysegSzamLista[segedLepesIndex] = jatekos.egysegek[i].getKezdemenyezes() + jatekos.jatekosHose.getMoral();
                 egysegLista[segedLepesIndex] = jatekos.egysegek[i];
                 resLepesLista[segedLepesIndex] = jatekos;
                 segedLepesIndex++;
             }
-            if (szGep.egysegek[i].getHanyVan() != 0) {
+            if (szGep.egysegek[i].getHanyVan() != 0 && szGep.egysegek[i].getOsszEletero() != 0) {
                 resEgysegSzamLista[segedLepesIndex] = szGep.egysegek[i].getKezdemenyezes() + szGep.jatekosHose.getMoral();
                 egysegLista[segedLepesIndex] = szGep.egysegek[i];
                 resLepesLista[segedLepesIndex] = szGep;
@@ -233,9 +240,9 @@ public class Kor {
 
         /* bubble sort csokkeno sorrendbe */
         int n = resEgysegSzamLista.length;
-        int temp = 0;
-        Jatekos tempJatekos = jatekos;
-        Egyseg tempEgyseg = jatekos.egysegek[0];
+        int temp;
+        Jatekos tempJatekos;
+        Egyseg tempEgyseg;
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 if (resEgysegSzamLista[j - 1] < resEgysegSzamLista[j]) { //jatekost reszesitem elonyben
@@ -316,6 +323,18 @@ public class Kor {
         System.out.println();
         Palya.repaintPalya(jatekos, szGep);
         System.out.println();
+    }
+
+    public static boolean mozgasMezore(int jelenlegiX, int jelenlegiY, int hovaX, int hovaY, Jatekos kiLep) { // nem konvertalt koordinatat var
+        if (Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja() == kiLep && !Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].isFoglalt()) {
+            Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].setMezo(
+                    Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getMilyenEgyseg(),
+                    Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja(),
+                    Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getTartalomEgyseg());
+            Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].resetMezo();
+            return true;
+        }
+        return false;
     }
 
 }
