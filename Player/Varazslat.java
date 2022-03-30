@@ -137,4 +137,8 @@ public abstract class Varazslat {
     public void setRendelkezik(boolean rendelkezik) {
         this.rendelkezik = rendelkezik;
     }
+
+    public int getMannaKoltseg() {
+        return mannaKoltseg;
+    }
 }

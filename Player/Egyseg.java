@@ -308,9 +308,12 @@ public class Egyseg {
     public String sebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
+        System.out.println("[ezcsakteszt:D] alapsebzes: " + alapSebzes);
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
-        double sajatVedekezes = kitTamad.jatekosHose.getVedekezes() * 0.05;
-        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
+        System.out.println("[ezcsakteszt:D] tamadosebzes: " + tamadoSebzes);
+        double sajatVedekezes = 1.0 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
+        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes)); //TODO MATH.ROUND / MATH.FLOOR?
+        System.out.println("[ezcsakteszt:D] vegsosebzes: " + vegsoSebzes);
 
         double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
         if (Math.random() <= kritEsely) {
@@ -338,7 +341,7 @@ public class Egyseg {
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
-        double sajatVedekezes = kitTamad.jatekosHose.getVedekezes() * 0.05;
+        double sajatVedekezes = 1 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
         int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
 
         double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05; //TODO ez kerdeses, van-e kritikus sebzes visszatamadasnal?

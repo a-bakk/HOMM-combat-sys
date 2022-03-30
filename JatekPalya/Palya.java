@@ -6,7 +6,6 @@ import GameManager.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//TODO 0 hp egysegeket nem kiirni
 public class Palya {
 
     private static final int PALYAMERET_S = 10;
@@ -63,11 +62,6 @@ public class Palya {
         return null;
     }
 
-    /*public static void hosTamad(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
-        Egyseg target = mezok[koordX][koordY].getTartalomEgyseg();
-        //
-    }*/
-
     public static void paintPalya(Jatekos jatekos1, Jatekos jatekos2) {
         final String ures = "               ";
         final String hatosUres = "      ";
@@ -120,7 +114,8 @@ public class Palya {
                                 System.out.print(jatekos2Megjelenit);
                             }
                             default -> {
-                                System.out.print(mezok[i-1][j-2].getTartalom());
+                                if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
+                                else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
                             }
                         }
                     }
@@ -129,6 +124,9 @@ public class Palya {
                             case 0 -> {
                                 if (String.valueOf(jatekos1.getManna()).length() == 2) {
                                     System.out.print("Manna: " + jatekos1.getManna() + "      ");
+                                }
+                                else if (String.valueOf(jatekos1.getManna()).length() == 1) {
+                                    System.out.print("Manna: " + jatekos1.getManna() + "       ");
                                 }
                                 else {
                                     System.out.print("Manna: " + jatekos1.getManna() + "     ");
@@ -144,7 +142,8 @@ public class Palya {
                                 System.out.print("Manna: " + jatekos2.getManna());
                             }
                             default -> {
-                                System.out.print(mezok[i-1][j-2].getTartalom());
+                                if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
+                                else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
                             }
                         }
                     }
@@ -171,7 +170,8 @@ public class Palya {
                                 System.out.print("Arany: " + jatekos2.getArany());
                             }
                             default -> {
-                                System.out.print(mezok[i-1][j-2].getTartalom());
+                                if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
+                                else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
                             }
                         }
                     }
@@ -192,7 +192,8 @@ public class Palya {
                                 System.out.print(hatosUres);
                             }
                             default -> {
-                                System.out.print(mezok[i-1][j-2].getTartalom());
+                                if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
+                                else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
                             }
                         }
                     }
@@ -244,7 +245,7 @@ public class Palya {
 
             for (int i = 0; i < varakozasiSor.size(); i++) {
 
-                int elem[] = varakozasiSor.poll();
+                int[] elem = varakozasiSor.poll();
                 int elemX = elem != null ? elem[0] : 0;
                 int elemY = elem != null ? elem[1] : 0;
 

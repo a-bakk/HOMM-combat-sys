@@ -10,6 +10,7 @@ public class Tuzlabda extends Varazslat {
         this.mannaKoltseg = 9;
     }
 
+
     @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) { // konvertalt koordinatakkal mukodik
         int sebzes = kiTamad.jatekosHose.getVarazsero() * 20;

@@ -9,6 +9,7 @@ public class Mezo {
     private Egyseg tartalomEgyseg;
     private Jatekos kiBirtokolja;
     private String milyenEgyseg;
+    private String defaultTartalom;
 
     public Mezo() {
         this.foglalt = false;
@@ -16,6 +17,7 @@ public class Mezo {
         this.tartalomEgyseg = null;
         this.milyenEgyseg = null;
         this.kiBirtokolja = null;
+        this.defaultTartalom = " --------- ";
     }
 
     public void setFoglalt(boolean foglalt) {
@@ -38,6 +40,10 @@ public class Mezo {
 
     public String getMilyenEgyseg() {
         return milyenEgyseg;
+    }
+
+    public String getDefaultTartalom() {
+        return defaultTartalom;
     }
 
     public void setMezo(String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {

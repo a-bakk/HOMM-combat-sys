@@ -72,13 +72,58 @@ public class Kor {
                             else {
                                 System.out.print("[!] Melyik varazslatot szeretned hasznalni: ");
                                 varazslat = scanner.nextLine();
+                                sikeresvarazslas:
                                 while(true) {
-                                    if ("villamcsapas".equals(varazslat) || "tuzlabda".equals(varazslat) || "feltamasztas".equals(varazslat) || "armageddon".equals(varazslat) || "varazsszarnyak".equals(varazslat)) {
-                                        if (Varazslat.vanVarazslat(jatekos, varazslat)) { // TODO van eleg mana?!?!?!
-                                            break;
+                                    if ("villamcsapas".equals(varazslat) || "tuzlabda".equals(varazslat) || "feltamasztas".equals(varazslat) || "armageddon".equals(varazslat) || "varazsszarnyak".equals(varazslat) || "TOVABB".equals(varazslat)) {
+                                        if (Varazslat.vanVarazslat(jatekos, varazslat)) {
+                                            switch (varazslat) {
+                                                case "tuzlabda" -> {
+                                                    if (jatekos.varazslatok[0].getMannaKoltseg() <= jatekos.getManna()) {
+                                                        break sikeresvarazslas;
+                                                    }
+                                                    else {
+                                                        System.out.println("[~] Nincs eleg mannad a varazslathoz!");
+                                                    }
+                                                }
+                                                case "villamcsapas" -> {
+                                                    if (jatekos.varazslatok[1].getMannaKoltseg() <= jatekos.getManna()) {
+                                                        break sikeresvarazslas;
+                                                    }
+                                                    else {
+                                                        System.out.println("[~] Nincs eleg mannad a varazslathoz!");
+                                                    }
+                                                }
+                                                case "feltamasztas" -> {
+                                                    if (jatekos.varazslatok[2].getMannaKoltseg() <= jatekos.getManna()) {
+                                                        break sikeresvarazslas;
+                                                    }
+                                                    else {
+                                                        System.out.println("[~] Nincs eleg mannad a varazslathoz!");
+                                                    }
+                                                }
+                                                case "armageddon" -> {
+                                                    if (jatekos.varazslatok[3].getMannaKoltseg() <= jatekos.getManna()) {
+                                                        break sikeresvarazslas;
+                                                    }
+                                                    else {
+                                                        System.out.println("[~] Nincs eleg mannad a varazslathoz!");
+                                                    }
+                                                }
+                                                case "varazsszarnyak" -> {
+                                                    if (jatekos.varazslatok[4].getMannaKoltseg() >= jatekos.getManna()) {
+                                                        break sikeresvarazslas;
+                                                    }
+                                                    else {
+                                                        System.out.println("[~] Nincs eleg mannad a varazslathoz!");
+                                                    }
+                                                }
+                                                case "TOVABB" -> {
+                                                    break sikeresvarazslas;
+                                                }
+                                            }
                                         }
                                     }
-                                    System.out.print("[!] Hibas input vagy nem rendelkezel ezzel a varazslattal! Adj meg helyes erteket: "); //else
+                                    System.out.print("[!] Hibas input vagy nem rendelkezel ezzel a varazslattal! Adj meg helyes erteket/TOVABB: ");
                                     varazslat = scanner.nextLine();
                                 }
                             }
@@ -96,6 +141,7 @@ public class Kor {
                                     System.out.println();
                                     System.out.println(jatekos.varazslatok[0].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                     System.out.println();
+                                    jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[0].getMannaKoltseg());
                                     repaint(jatekos, szGep);
                                     jatekosHosAction = true;
                                 }
@@ -104,6 +150,7 @@ public class Kor {
                                         System.out.println();
                                         System.out.println(jatekos.varazslatok[1].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                         System.out.println();
+                                        jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[1].getMannaKoltseg());
                                         repaint(jatekos, szGep);
                                         jatekosHosAction = true;
                                     }
@@ -116,6 +163,7 @@ public class Kor {
                                         System.out.println();
                                         System.out.println(jatekos.varazslatok[2].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                         System.out.println();
+                                        jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[2].getMannaKoltseg());
                                         repaint(jatekos, szGep);
                                         jatekosHosAction = true;
                                     }
@@ -127,6 +175,7 @@ public class Kor {
                                     System.out.println();
                                     System.out.println(jatekos.varazslatok[3].kulonlegesHatas(jatekos, szGep, 0, 0));
                                     System.out.println();
+                                    jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[3].getMannaKoltseg());
                                     repaint(jatekos, szGep);
                                     jatekosHosAction = true;
                                 }
@@ -137,6 +186,7 @@ public class Kor {
                                     int hovaY = chooseY();
                                     if (mozgasMezore(jelenlegiX, jelenlegiY, hovaX, hovaY, jatekos)) {
                                         jatekosHosAction = true;
+                                        jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[4].getMannaKoltseg());
                                         repaint(jatekos, szGep);
                                     }
                                     else {
