@@ -100,14 +100,6 @@ public class Hos {
         this.tamadas = tamadas;
     }
 
-    public void setVedekezes(int vedekezes) {
-        this.vedekezes = vedekezes;
-    }
-
-    public void setVarazsero(int varazsero) {
-        this.varazsero = varazsero;
-    }
-
     public void setTudas(int tudas) {
         this.tudas = tudas;
     }
@@ -116,7 +108,4 @@ public class Hos {
         this.moral = moral;
     }
 
-    public void setSzerencse(int szerencse) {
-        this.szerencse = szerencse;
-    }
 }

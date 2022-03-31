@@ -72,21 +72,11 @@ public abstract class Varazslat {
         for (int i = 0; i < kinek.varazslatok.length; i++) {
             if (kinek.varazslatok[i].rendelkezik) {
                 switch (i) {
-                    case 0 -> {
-                        System.out.println("[~] Tuzlabda");
-                    }
-                    case 1 -> {
-                        System.out.println("[~] Villamcsapas");
-                    }
-                    case 2 -> {
-                        System.out.println("[~] Feltamasztas");
-                    }
-                    case 3 -> {
-                        System.out.println("[~] Armageddon");
-                    }
-                    case 4 -> {
-                        System.out.println("[~] Varazsszarnyak");
-                    }
+                    case 0 -> System.out.println("[~] Tuzlabda");
+                    case 1 -> System.out.println("[~] Villamcsapas");
+                    case 2 -> System.out.println("[~] Feltamasztas");
+                    case 3 -> System.out.println("[~] Armageddon");
+                    case 4 -> System.out.println("[~] Varazsszarnyak");
                 }
             }
         }

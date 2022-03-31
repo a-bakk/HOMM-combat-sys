@@ -7,6 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        GameManager.welcomeMessage();
+
         GameManager.chooseDifficulty();
 
         Jatekos jatekos = new Jatekos(false);

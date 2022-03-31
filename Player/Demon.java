@@ -9,7 +9,7 @@ public class Demon extends Egyseg {
         this.eletero = 10;
         this.sebesseg = 3;
         this.kezdemenyezes = 12;
-        this.specKepesseg = "unknown";
+        this.specKepesseg = "vegtelen visszatamadas";
         this.hanyVan = 0;
         this.elhelyezett = false;
     }

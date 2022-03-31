@@ -1,10 +1,8 @@
 package JatekPalya;
 
 import Player.*;
-import GameManager.*;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Palya {
 
@@ -43,10 +41,6 @@ public class Palya {
 
     public static void mezoFoglal(int koordX, int koordY, String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {
         mezok[koordX][koordY].setMezo(milyenEgyseg, kinek, melyikEgyseg);
-    }
-
-    public static void mezoFelszabadit(int koordX, int koordY) {
-        mezok[koordX][koordY].resetMezo();
     }
 
     public static Egyseg getLastPlayerEgyseg(Jatekos jatekos) {
@@ -96,7 +90,7 @@ public class Palya {
         return null;
     }
 
-    public static Egyseg chooseMezoEnemyLetezik(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {
+    public static Egyseg chooseMezoEnemyLetezik(int koordX, int koordY, Jatekos kitTamad) {
 
         if (!foglalt(koordX, koordY)) {
             return null;
@@ -125,15 +119,10 @@ public class Palya {
                 switch (i) {
                     case 0 -> {
                         switch (j) {
-                            case 0, 15 -> {
-                                System.out.print(ures);
-                            }
-                            case 1 -> {
-                                System.out.print(kisUres);
-                            }
-                            case 14 -> {
-                                System.out.print(hatosUres);
-                            }
+                            case 0, 15 -> System.out.print(ures);
+
+                            case 1 -> System.out.print(kisUres);
+                            case 14 -> System.out.print(hatosUres);
                             default -> {
                                 if (String.valueOf(oszlopCounter).length() == 1) {
                                     System.out.print(" ----" + oszlopCounter + "---- ");
@@ -147,19 +136,10 @@ public class Palya {
                     }
                     case 4 -> {
                         switch (j) {
-                            case 0 -> {
-                                System.out.print(jatekos1Megjelenit + "        ");
-                            }
-                            case 1 -> {
-                                System.out.print(" ----4---- ");
-                            }
-                            case 14 -> {
-                                System.out.print(hatosUres);
-
-                            }
-                            case 15 -> {
-                                System.out.print(jatekos2Megjelenit);
-                            }
+                            case 0 -> System.out.print(jatekos1Megjelenit + "        ");
+                            case 1 -> System.out.print(" ----4---- ");
+                            case 14 -> System.out.print(hatosUres);
+                            case 15 -> System.out.print(jatekos2Megjelenit);
                             default -> {
                                 if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
                                 else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
@@ -179,15 +159,9 @@ public class Palya {
                                     System.out.print("Manna: " + jatekos1.getManna() + "     ");
                                 }
                             }
-                            case 1 -> {
-                                System.out.print(" ----5---- ");
-                            }
-                            case 14 -> {
-                                System.out.print(hatosUres);
-                            }
-                            case 15 -> {
-                                System.out.print("Manna: " + jatekos2.getManna());
-                            }
+                            case 1 -> System.out.print(" ----5---- ");
+                            case 14 -> System.out.print(hatosUres);
+                            case 15 -> System.out.print("Manna: " + jatekos2.getManna());
                             default -> {
                                 if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
                                 else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
@@ -207,15 +181,9 @@ public class Palya {
                                     System.out.print("Arany: " + jatekos1.getArany() + "       ");
                                 }
                             }
-                            case 1 -> {
-                                System.out.print(" ----6---- ");
-                            }
-                            case 14 -> {
-                                System.out.print(hatosUres);
-                            }
-                            case 15 -> {
-                                System.out.print("Arany: " + jatekos2.getArany());
-                            }
+                            case 1 -> System.out.print(" ----6---- ");
+                            case 14 -> System.out.print(hatosUres);
+                            case 15 -> System.out.print("Arany: " + jatekos2.getArany());
                             default -> {
                                 if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
                                 else System.out.print(mezok[i-1][j-2].getDefaultTartalom());
@@ -224,9 +192,7 @@ public class Palya {
                     }
                     default -> {
                         switch (j) {
-                            case 0, 15 -> {
-                                System.out.print(ures);
-                            }
+                            case 0, 15 -> System.out.print(ures);
                             case 1 -> {
                                 if (i <= 9) {
                                     System.out.print(" ----" + (i) + "---- ");
@@ -235,9 +201,7 @@ public class Palya {
                                     System.out.print(" ----" + (i) + "--- ");
                                 }
                             }
-                            case 14 -> {
-                                System.out.print(hatosUres);
-                            }
+                            case 14 -> System.out.print(hatosUres);
                             default -> {
                                 if (mezok[i-1][j-2].getTartalomEgyseg() != null && mezok[i-1][j-2].getTartalomEgyseg().getOsszEletero() > 0) System.out.print(mezok[i-1][j-2].getTartalom());
                                 else System.out.print(mezok[i-1][j-2].getDefaultTartalom());

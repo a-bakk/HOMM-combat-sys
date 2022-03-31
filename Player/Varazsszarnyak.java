@@ -10,7 +10,7 @@ public class Varazsszarnyak extends Varazslat {
 
     @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) {
-        /* direkt hivasnal megvalositva */
+        /* direkt hivasnal megvalositva, ez most sajnos ilyen */
         return null;
     }
 }

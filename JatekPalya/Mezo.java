@@ -9,7 +9,7 @@ public class Mezo {
     private Egyseg tartalomEgyseg;
     private Jatekos kiBirtokolja;
     private String milyenEgyseg;
-    private String defaultTartalom;
+    private final String defaultTartalom;
 
     public Mezo() {
         this.foglalt = false;
@@ -19,12 +19,6 @@ public class Mezo {
         this.kiBirtokolja = null;
         this.defaultTartalom = " --------- ";
     }
-
-    public void setFoglalt(boolean foglalt) {
-        this.foglalt = foglalt;
-    }
-
-    public void setTartalom(String tartalom) { this.tartalom = tartalom; }
 
     public boolean isFoglalt() { return this.foglalt; }
 

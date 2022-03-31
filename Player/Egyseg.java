@@ -264,7 +264,7 @@ public class Egyseg {
         return null;
     }
 
-    public static String tisztaHosSebzestKap(Jatekos tamado, Jatekos szenvedo, Egyseg melyikEgyseg) {
+    public static String tisztaHosSebzestKap(Jatekos tamado, Egyseg melyikEgyseg) {
         int teljesSebzes = tamado.jatekosHose.getTamadas() * 10;
         melyikEgyseg.setOsszEletero(melyikEgyseg.getOsszEletero() - teljesSebzes);
         if (melyikEgyseg.getOsszEletero() <= 0) {
@@ -293,7 +293,7 @@ public class Egyseg {
         return "[~] A mergezes sikeres, az ellenfel egysegenek egy peldanya meghalt!";
     }
 
-    public static boolean szomszedosEllenfel(Jatekos tamado, Jatekos szenvedo, int koordX, int koordY, int tamadX, int tamadY) {
+    public static boolean szomszedosEllenfel(Jatekos szenvedo, int koordX, int koordY, int tamadX, int tamadY) {
 
         if (Palya.getMezok()[tamadX][tamadY].getKiBirtokolja() == szenvedo && Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getEletero() != 0) {
             if (koordX - 1 >= 0 && koordY - 1 >= 0) {
@@ -325,8 +325,7 @@ public class Egyseg {
                     return true;
             }
             if (koordX + 1 <= 9 && koordY + 1 <= 11) {
-                if (koordX + 1 == tamadX && koordY + 1 == tamadY)
-                    return true;
+                return koordX + 1 == tamadX && koordY + 1 == tamadY;
             }
         }
 
@@ -418,20 +417,12 @@ public class Egyseg {
         return kezdemenyezes;
     }
 
-    public String getSpecKepesseg() {
-        return specKepesseg;
-    }
-
     public int getMaxSebzes() {
         return maxSebzes;
     }
 
     public int getHanyVan() {
         return hanyVan;
-    }
-
-    public boolean isElhelyezett() {
-        return elhelyezett;
     }
 
     public int getOsszEletero() {

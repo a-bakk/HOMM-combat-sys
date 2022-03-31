@@ -1,6 +1,5 @@
 package GameManager;
 
-import JatekPalya.Mezo;
 import JatekPalya.Palya;
 import Player.*;
 
@@ -27,6 +26,10 @@ public class GameManager {
             nehezseg = input;
         }
         System.out.println("[~] A valasztott nehezsegi szint: " + input);
+    }
+
+    public static void welcomeMessage() {
+        System.out.println("*************************************************\n*    Definitely not Heroes of Might & Magic     *\n*************************************************");
     }
 
     public static void info(String mod, Jatekos kinek) {
@@ -362,7 +365,7 @@ public class GameManager {
     }
 
     public static double applyTamadas(Jatekos jatekos, int alapSebzes) {
-        return (double)(alapSebzes * ((jatekos.jatekosHose.getTamadas() + 10.0) / 10.0));
+        return (alapSebzes * ((jatekos.jatekosHose.getTamadas() + 10.0) / 10.0));
     }
 
 }

@@ -10,7 +10,7 @@ public class Feltamasztas extends Varazslat {
         this.mannaKoltseg = 6;
     }
 
-    @Override //TODO teszt ezt is
+    @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) {
         int gyogyitas = kiTamad.jatekosHose.getVarazsero() * 50;
         if (Palya.getMezok()[koordX][koordY].isFoglalt()) {
