@@ -21,7 +21,6 @@ public class Main {
         GameManager.info("all", jatekos);
         GameManager.szGepStats(szGep);
 
-        Palya jatekPalya = new Palya(); // csak statik methodusok vannak a palyaban
         Palya.setMezok();
 
         GameManager.updateTudas(jatekos, szGep);
@@ -35,7 +34,13 @@ public class Main {
         GameManager.elhelyezSzGep(szGep);
         Palya.paintPalya(jatekos, szGep);
 
-        Kor.ujKor(jatekos, szGep);
+        while (!Kor.isGyozelemKondicio()) {
+            Kor.ujKor(jatekos, szGep);
+        }
+
+        System.out.println();
+        System.out.println(Kor.getKiNyert() == jatekos ? "[!] Gyoztel!!!" : "[!] Sajnos az ellenfel gyozott!");
+        System.out.println();
 
     }
 

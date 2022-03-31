@@ -24,7 +24,7 @@ public class Palya {
 
     public static void updateMezok() {
         for (int i = 0; i < PALYAMERET_S; i++) {
-            for (int j = 0; j< PALYAMERET_O; j++) {
+            for (int j = 0; j < PALYAMERET_O; j++) {
                 if (mezok[i][j].isFoglalt()) {
                     mezok[i][j].setMezo(mezok[i][j].getMilyenEgyseg(), mezok[i][j].getKiBirtokolja(), mezok[i][j].getTartalomEgyseg());
                 }
@@ -47,6 +47,53 @@ public class Palya {
 
     public static void mezoFelszabadit(int koordX, int koordY) {
         mezok[koordX][koordY].resetMezo();
+    }
+
+    public static Egyseg getLastPlayerEgyseg(Jatekos jatekos) {
+        for (int i = PALYAMERET_S - 1; i >= 0; i--) {
+            for (int j = PALYAMERET_O - 1; j >= 0; j--) {
+                if (mezok[i][j].isFoglalt() && mezok[i][j].getKiBirtokolja() == jatekos) {
+                    return mezok[i][j].getTartalomEgyseg();
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Egyseg vanSzGepKozelbenEgyseg(Jatekos jatekos, int koordX, int koordY) {
+        if (koordX - 1 >= 0 && koordY - 1 >= 0) {
+            if (mezok[koordX-1][koordY-1].getKiBirtokolja() == jatekos)
+                return mezok[koordX-1][koordY-1].getTartalomEgyseg();
+        }
+        if (koordX - 1 >= 0) {
+            if (mezok[koordX-1][koordY].getKiBirtokolja() == jatekos)
+                return mezok[koordX-1][koordY].getTartalomEgyseg();
+        }
+        if (koordX - 1 >= 0 && koordY + 1 <= 11) {
+            if (mezok[koordX-1][koordY+1].getKiBirtokolja() == jatekos)
+                return mezok[koordX-1][koordY+1].getTartalomEgyseg();
+        }
+        if (koordY - 1 >= 0) {
+            if (mezok[koordX][koordY-1].getKiBirtokolja() == jatekos)
+                return mezok[koordX][koordY-1].getTartalomEgyseg();
+        }
+        if (koordY + 1 <= 11) {
+            if (mezok[koordX][koordY+1].getKiBirtokolja() == jatekos)
+                return mezok[koordX][koordY+1].getTartalomEgyseg();
+        }
+        if (koordX + 1 <= 9 && koordY - 1 >= 0) {
+            if (mezok[koordX+1][koordY-1].getKiBirtokolja() == jatekos)
+                return mezok[koordX+1][koordY-1].getTartalomEgyseg();
+        }
+        if (koordX + 1 <= 9) {
+            if (mezok[koordX+1][koordY].getKiBirtokolja() == jatekos)
+                return mezok[koordX+1][koordY].getTartalomEgyseg();
+        }
+        if (koordX + 1 <= 9 && koordY + 1 <= 11) {
+            if (mezok[koordX+1][koordY+1].getKiBirtokolja() == jatekos)
+                return mezok[koordX+1][koordY+1].getTartalomEgyseg();
+        }
+        return null;
     }
 
     public static Egyseg chooseMezoEnemyLetezik(int koordX, int koordY, Jatekos kiTamad, Jatekos kitTamad) {

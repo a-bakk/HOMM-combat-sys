@@ -16,6 +16,7 @@ public class Egyseg {
     protected boolean elhelyezett;
     protected int osszEletero;
     protected int maxEletero;
+    protected boolean visszatamadott;
 
     public static boolean buyEgysegek(Jatekos kinek, String milyenEgyseg, int hanyat) {
         System.out.println();
@@ -225,6 +226,23 @@ public class Egyseg {
         }
     }
 
+    public static void setVisszatamadottFalse(Jatekos jatekos, Jatekos szGep) {
+        for (int i = 0; i < jatekos.egysegek.length; i++) {
+            jatekos.egysegek[i].visszatamadott = false;
+        }
+        for (int i = 0; i < szGep.egysegek.length; i++) {
+            szGep.egysegek[i].visszatamadott = false;
+        }
+    }
+
+    public boolean isVisszatamadott() {
+        return visszatamadott;
+    }
+
+    public void setVisszatamadott(boolean visszatamadott) {
+        this.visszatamadott = visszatamadott;
+    }
+
     public static Egyseg resolveEgyseg(String milyenEgyseg, Jatekos kinek) {
         switch (milyenEgyseg) {
             case "foldmuves" -> {
@@ -263,6 +281,16 @@ public class Egyseg {
             return "[~] A tamadas sikeres! Az ellenfelnek maradt " + melyikEgyseg.getOsszEletero() / melyikEgyseg.getEletero() + " teljes eletereju egysege es meg egy "
                     + melyikEgyseg.getOsszEletero() % melyikEgyseg.getEletero() + " eletereju egysege!";
         }
+    }
+
+    public static String hobgoblinMergezestKap(Egyseg celpont) {
+        celpont.setOsszEletero(celpont.getOsszEletero() - celpont.getEletero());
+        celpont.setHanyVan(celpont.getHanyVan() - 1);
+        if (celpont.getOsszEletero() <= 0) {
+            celpont.setHanyVan(0);
+            return "[~] A mergezes sikeres, az ellenfel egysege meg is halt!";
+        }
+        return "[~] A mergezes sikeres, az ellenfel egysegenek egy peldanya meghalt!";
     }
 
     public static boolean szomszedosEllenfel(Jatekos tamado, Jatekos szenvedo, int koordX, int koordY, int tamadX, int tamadY) {
@@ -312,7 +340,7 @@ public class Egyseg {
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
         System.out.println("[ezcsakteszt:D] tamadosebzes: " + tamadoSebzes);
         double sajatVedekezes = 1.0 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
-        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes)); //TODO MATH.ROUND / MATH.FLOOR?
+        int vegsoSebzes = (int)Math.round((tamadoSebzes * sajatVedekezes)); //TODO MATH.ROUND / MATH.FLOOR?
         System.out.println("[ezcsakteszt:D] vegsosebzes: " + vegsoSebzes);
 
         double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
@@ -344,7 +372,7 @@ public class Egyseg {
         double sajatVedekezes = 1 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
         int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
 
-        double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05; //TODO ez kerdeses, van-e kritikus sebzes visszatamadasnal?
+        double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
         if (Math.random() <= kritEsely) {
             vegsoSebzes *= 2;
             System.out.println("[~] A visszatamado egyseg kritikusan sebez!");
