@@ -1,5 +1,9 @@
 package Player;
 
+/**
+ * A hobgoblint, egy speciális egységet megvalósító osztály egyetlen konstruktorral, amely megfelelően inicializálja az adattagokat.
+ */
+
 public class Hobgoblin extends Egyseg {
 
     public Hobgoblin() {

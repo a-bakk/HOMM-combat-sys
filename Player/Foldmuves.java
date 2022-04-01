@@ -1,5 +1,9 @@
 package Player;
 
+/**
+ * A földművest, egy speciális egységet megvalósító osztály egyetlen konstruktorral, amely megfelelően inicializálja az adattagokat.
+ */
+
 public class Foldmuves extends Egyseg {
 
     public Foldmuves() {

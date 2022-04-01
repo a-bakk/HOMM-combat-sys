@@ -5,16 +5,26 @@ import Player.*;
 
 import java.util.Scanner;
 
+/**
+ * Az osztály feladata a játék különböző fázisainak megvalósítása, kommunikáció a felhasználóval.
+ */
+
 public class GameManager {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * A játék nehezségi szintje, ez alapján kap aranyat a felhasználó.
+     */
     private static String nehezseg = null;
 
     public static String getNehezseg() {
         return nehezseg;
     }
 
+    /**
+     * Megvalósítja a nehézségi szint választását, annak is leginkább a felhasználóval való kommunikációs részét.
+     */
     public static void chooseDifficulty() {
         String input;
         System.out.print("[!] Valassz nehezsegi szintet! Lehetseges ertekek: konnyu, kozepes, nehez: ");
@@ -28,10 +38,19 @@ public class GameManager {
         System.out.println("[~] A valasztott nehezsegi szint: " + input);
     }
 
+    /**
+     * Üdvözlő üzenet.
+     */
     public static void welcomeMessage() {
         System.out.println("*************************************************\n*    Definitely not Heroes of Might & Magic     *\n*************************************************");
     }
 
+    /**
+     * Segítségével lekérdezhetjük adott játékos adott statisztikáit.
+     *
+     * @param mod milyen módban szeretnénk kérdezni, milyen információt szolgáltasson a metódus
+     * @param kinek melyik játékosnak a statjairól van szó
+     */
     public static void info(String mod, Jatekos kinek) {
 
         if ("arany".equals(mod)) {
@@ -66,6 +85,11 @@ public class GameManager {
 
     }
 
+    /**
+     * Listázza adott játékos tulajdonságait, alapból mindegyik kategóriában egy ponttal rendelkezik.
+     *
+     * @param kinek melyik játékosnak listázzuk a tulajdonságait
+     */
     private static void listTulajdonsagok(Jatekos kinek) {
         System.out.println("[~] Tamadas: " + kinek.jatekosHose.getTamadas());
         System.out.println("[~] Vedekezes: " + kinek.jatekosHose.getVedekezes());
@@ -76,6 +100,11 @@ public class GameManager {
         System.out.println();
     }
 
+    /**
+     * Megvalósítja a tulajdonság vásárlásának kommunikációs felét, ellenőrzi az inputot.
+     *
+     * @param jatekos jelenleg ki osztja el a tulajdonságpontjait
+     */
     public static void tulajdonsagPhase(Jatekos jatekos) {
 
         GameManager.info("arany", jatekos);
@@ -108,6 +137,11 @@ public class GameManager {
         System.out.println();
     }
 
+    /**
+     * Megvalósítja a varázslatok vásárlásának kommunikációs felét, ellenőrzi az inputot.
+     *
+     * @param jatekos melyik játékos vásárol jelenleg varázslatokat
+     */
     public static void varazslatPhase(Jatekos jatekos) {
 
         GameManager.info("arany", jatekos);
@@ -144,6 +178,11 @@ public class GameManager {
 
     }
 
+    /**
+     * Az egységek vásárlását megvalósító metódus, egyszerre látja el a felhasználót információval és ellenőriz inputot.
+     *
+     * @param jatekos jelenleg ki vásárol egységeket
+     */
     public static void egysegPhase(Jatekos jatekos) {
 
         GameManager.info("arany", jatekos);
@@ -204,6 +243,11 @@ public class GameManager {
         System.out.println();
     }
 
+    /**
+     * Kommunikálja a felhasználóval, hogy helyezze el az egységeit. Amíg van elhelyezendő egység, addig nem enged tovább lépni.
+     *
+     * @param jatekos melyik játékos helyezi el az egységeit
+     */
     public static void taktikaiPhase(Jatekos jatekos) {
         System.out.println();
         System.out.println("[!] Helyezd el az egysegeidet, az elso ket oszlop all rendelkezesedre!");
@@ -283,10 +327,23 @@ public class GameManager {
         }
     }
 
+    /**
+     * A koordinátákat váltja át megjelenítés és tárolás között.
+     *
+     * @param koordinata az átváltásra váró koordináta
+     * @return az átváltott koordináta
+     */
     public static int convertKoordinata(int koordinata) {
         return --koordinata;
     }
 
+    /**
+     * A számítógép statjait tölti fel, egységeit is beállítja, az árukat levonja az aranyból.
+     *
+     * <p>A számítógép egységei, varázslatai, tulajdonságai állandóak, nem változnak körönként.</p>
+     *
+     * @param szGep a számítógépet reprezentáló játékos
+     */
     public static void feltoltSzGep (Jatekos szGep) {
 
         szGep.setArany(1000);
@@ -314,6 +371,11 @@ public class GameManager {
 
     }
 
+    /**
+     * Kiírja a számítógép statjait, ezáltal azt a felhasználó is megismerheti még a csata előtt.
+     *
+     * @param szGep a számítógépet jelölő játékos
+     */
     public static void szGepStats(Jatekos szGep) {
         System.out.println();
         System.out.println("[~] Az szamitogep statjai jelenleg: ");
@@ -330,6 +392,11 @@ public class GameManager {
         }
     }
 
+    /**
+     * Elhelyezi a számítógép egységeit a pályán, a követelményeknek megfelelően az utolsó két oszlopba. Ez is állandó, nem változik játékonként.
+     *
+     * @param szGep a számítógépet jelölő játékos
+     */
     public static void elhelyezSzGep (Jatekos szGep) {
         Palya.mezoFoglal(convertKoordinata(2), convertKoordinata(12), "griff", szGep, Egyseg.resolveEgyseg("griff", szGep));
         Egyseg.setElhelyezettTrue("griff", szGep);
@@ -341,11 +408,25 @@ public class GameManager {
         System.out.println("[~] Az ellenfel is elhelyezte az egysegeit!");
     }
 
+    /**
+     * Miután minden vásárlás lejárt, frissíti a tudás tulajdonságat, gyakorlatilag beállítja a két játékos mannáját.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     */
     public static void updateTudas(Jatekos jatekos, Jatekos szGep) {
         jatekos.setManna(jatekos.jatekosHose.getTudas() * 10);
         szGep.setManna(szGep.jatekosHose.getTudas() * 10);
     }
 
+    /**
+     * Adott egység példányainak összességének életereje.
+     *
+     * <p>A legtöbb metódus a többi osztályban általában összÉleterővel dolgozik, hiszen az egységeket egyben kell kezelni.</p>
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     */
     public static void updateOsszEletero(Jatekos jatekos, Jatekos szGep) {
         for (int i = 0; i < jatekos.egysegek.length; i++) {
             jatekos.egysegek[i].setOsszEletero(jatekos.egysegek[i].getEletero() * jatekos.egysegek[i].getHanyVan());
@@ -353,6 +434,12 @@ public class GameManager {
         }
     }
 
+    /**
+     * A játék elején rögzíti a max életerőt, mely a feltámasztás varázslatnál kulcsfontosságú, ezt az értéket nem haladhatja meg.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     */
     public static void updateMaxEletero(Jatekos jatekos, Jatekos szGep) {
         for (int i = 0; i < jatekos.egysegek.length; i++) {
             jatekos.egysegek[i].setMaxEletero(jatekos.egysegek[i].getOsszEletero());
@@ -360,10 +447,27 @@ public class GameManager {
         }
     }
 
+    /**
+     * Random számot generál két korlát között a Math osztály random metódusának segítségével.
+     *
+     * <p>A random osztállyal valószínüseg előnyösebb lett volna a számgenerálás, viszont ezt könnyebnek tűnt implementálni és
+     * a Math.random() esetleges nem túl-randomsága itt még valószínüleg érezhető.</p>
+     *
+     * @param min az alsó határ
+     * @param max a felső határ
+     * @return a generált, random szám
+     */
     public static int mathRandom(int min, int max) {
         return min + (int)(Math.random() * ((max - min) + 1));
     }
 
+    /**
+     * Az alapsebzést növeli az adott játékos tamádas bonuszával, és duplapontos pontosággal tér vissza.
+     *
+     * @param jatekos melyik játékosnak számítjuk a támadását.
+     * @param alapSebzes mennyi a játékos kiszámolt alapsebzése
+     * @return az új sebzés, mely a játékos támadás bónuszával nőtt
+     */
     public static double applyTamadas(Jatekos jatekos, int alapSebzes) {
         return (alapSebzes * ((jatekos.jatekosHose.getTamadas() + 10.0) / 10.0));
     }

@@ -2,6 +2,12 @@ package Player;
 
 import JatekPalya.Palya;
 
+/**
+ * Az armageddon varázslatot valósítja meg az osztály.
+ *
+ * <p>Egyetlen metódusa a különlegesHatás, mely <b>minden</b> egységet varázserő * 5 sebzéssel illet.</p>
+ */
+
 public class Armageddon extends Varazslat {
 
     public Armageddon() {
@@ -10,6 +16,15 @@ public class Armageddon extends Varazslat {
         this.mannaKoltseg = 3;
     }
 
+    /**
+     * Az Armageddon varászlat hatását valósítja meg, minden egységre varázserő * 5 sebzést mér.
+     *
+     * @param kiTamad ki használja a varázslatot
+     * @param kitTamad ki az elszenvedő
+     * @param koordX kizárólag az öröklödés miatt, itt nem felhasznált
+     * @param koordY kizárólag az öröklődés miatt, itt nem felhasznált
+     * @return a sikeres varázslás szöveges formában
+     */
     @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) {
         int sebzes = kiTamad.jatekosHose.getVarazsero() * 5;

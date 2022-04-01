@@ -1,5 +1,9 @@
 package Player;
 
+/**
+ * A Démon egységet megvalósító osztály, egyetlen metódusa a konsruktor, mely a követelményeknek megfelelő módon feltölti az adattagokat.
+ */
+
 public class Demon extends Egyseg {
 
     public Demon() {

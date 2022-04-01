@@ -5,15 +5,40 @@ import Player.*;
 
 import java.util.Scanner;
 
+/**
+ * A Kör osztály valósítja meg a körök vezérlését.
+ */
+
 public class Kor {
 
+    /**
+     * Az egységek közötti sorrendiség van a tömbben reprezentálva.
+     */
     private static Egyseg[] egysegLista;
     private static final Scanner scanner = new Scanner(System.in);
     private static String input;
+    /**
+     * Éppen hányadik körnél tart a játék, leginkább a megjelenítés miatt fontos.
+     */
     private static int korCounter = 1;
+    /**
+     * Ebből tudja meg a vezérlés, hogy valaki megnyerte a játékot.
+     */
     private static boolean gyozelemKondicio = false;
+    /**
+     * A nyertest tároló objektum.
+     */
     public static Jatekos kiNyert;
 
+    /**
+     *
+     * A metódus az aktuális kört reprezentálja, abban teremt sorrendiséget a vezérlést segítő tömbök használatával, azokon való iterálással.
+     *
+     * <p>A számítógép-ellenfél korlátolt tudású, varázsolni például egyáltalán nem tud, viszont a hős támad, az egységek mozoghatnak, támadhatnak, várakozhatnak.</p>
+     *
+     * @param jatekos a nem gépi ellenfél
+     * @param szGep a számítógép
+     */
     public static void ujKor(Jatekos jatekos, Jatekos szGep) {
         System.out.println();
         System.out.println("[~] Uj kor kezdodott! Ez a(z) " + korCounter + ". kor!");
@@ -290,7 +315,6 @@ public class Kor {
                                 Egyseg celpont = Palya.chooseMezoEnemyLetezik(convertKoordinata(tamadX), convertKoordinata(tamadY), szGep);
                                 if (celpont != null) {
                                     System.out.println(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().sebzestKap(szGep, jatekos, sajatX, sajatY) + " "); // tamadas
-                                    //updateLepesLista(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg());
                                     if (nyertValaki(jatekos, szGep) != 0) {
                                         kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
                                         gyozelemKondicio = true;
@@ -298,13 +322,14 @@ public class Kor {
                                     }
                                     if (Egyseg.szomszedosEllenfel(szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
                                         if (!Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().isVisszatamadott() || "griff".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg())) || "demon".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg()))) {
-                                            System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY)) + " "); // visszatamadas
-                                            Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
-                                            //updateLepesLista(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg());
-                                            if (nyertValaki(jatekos, szGep) != 0) {
-                                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
-                                                gyozelemKondicio = true;
-                                                break korFutasa;
+                                            if (Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().getOsszEletero() > 0) {
+                                                System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY)) + " "); // visszatamadas
+                                                Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
+                                                if (nyertValaki(jatekos, szGep) != 0) {
+                                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                                    gyozelemKondicio = true;
+                                                    break korFutasa;
+                                                }
                                             }
                                         }
                                     }
@@ -315,20 +340,20 @@ public class Kor {
 
                             if (Egyseg.szomszedosEllenfel(szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
                                 System.out.println(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().sebzestKap(szGep, jatekos, sajatX, sajatY)); // tamadas
-                                //updateLepesLista(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg());
                                 if (nyertValaki(jatekos, szGep) != 0) {
                                     kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
                                     gyozelemKondicio = true;
                                     break korFutasa;
                                 }
                                 if (!Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().isVisszatamadott() || "griff".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg())) || "demon".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg()))) {
-                                    System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY))); // visszatamadas
-                                    Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
-                                    //updateLepesLista(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg());
-                                    if (nyertValaki(jatekos, szGep) != 0) {
-                                        kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
-                                        gyozelemKondicio = true;
-                                        break korFutasa;
+                                    if (Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().getOsszEletero() > 0) {
+                                        System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY))); // visszatamadas
+                                        Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
+                                        if (nyertValaki(jatekos, szGep) != 0) {
+                                            kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                            gyozelemKondicio = true;
+                                            break korFutasa;
+                                        }
                                     }
                                 }
                                 repaint(jatekos, szGep);
@@ -353,7 +378,6 @@ public class Kor {
                             System.out.println();
                             System.out.println("[!] Az ellenfel hose sikeresen megtamadta az egyik egysegedet!");
                             System.out.println();
-                            //updateLepesLista(celpont);
                             if (nyertValaki(jatekos, szGep) != 0) {
                                 kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
                                 gyozelemKondicio = true;
@@ -375,7 +399,6 @@ public class Kor {
 
                     if (potencialisCelpont != null) {
                         potencialisCelpont.sebzestKap(jatekos, szGep, koordX, koordY);
-                        //updateLepesLista(potencialisCelpont);
                         System.out.println();
                         System.out.println("[~] Az ellenfel megtamadta az egyik egysegedet!");
                         if (!potencialisCelpont.isVisszatamadott() || "griff".equals(Egyseg.egysegNev(jatekos, potencialisCelpont)) || "demon".equals(Egyseg.egysegNev(jatekos, potencialisCelpont))) {
@@ -383,16 +406,17 @@ public class Kor {
                             int visszaX = Palya.getIndexX(potencialisCelpont);
                             int visszaY = Palya.getIndexY(potencialisCelpont);
 
-                            egysegLista[lepesIndex].visszatamadasSebzestKap(szGep, jatekos, visszaX, visszaY); // visszatamadas
-                            potencialisCelpont.setVisszatamadott(true);
-                            //updateLepesLista(egysegLista[lepesIndex]);
-                            if (nyertValaki(jatekos, szGep) != 0) {
-                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
-                                gyozelemKondicio = true;
-                                break;
+                            if (potencialisCelpont.getOsszEletero() > 0) {
+                                egysegLista[lepesIndex].visszatamadasSebzestKap(szGep, jatekos, visszaX, visszaY); // visszatamadas
+                                potencialisCelpont.setVisszatamadott(true);
+                                if (nyertValaki(jatekos, szGep) != 0) {
+                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                    gyozelemKondicio = true;
+                                    break;
+                                }
+                                System.out.println();
+                                System.out.println("[~] Az egyseged sikeresen visszatamadott!");
                             }
-                            System.out.println();
-                            System.out.println("[~] Az egyseged sikeresen visszatamadott!");
                         }
                         repaint(jatekos, szGep);
                     }
@@ -422,10 +446,28 @@ public class Kor {
         }
     }
 
+    /**
+     *
+     * A koordinátákat konvertálja olyan módon, hogy nemes egyszerűséggel csökkenti, hiszen a háttérben tárolt tömb indexelése nullától kezdődik, a megjelenítettnek pedig nem.
+     *
+     * @param koordinata a konvertálandó koordináta
+     * @return a konvertált koordináta
+     */
     public static int convertKoordinata(int koordinata) {
         return --koordinata;
     }
 
+    /**
+     *
+     * A kör sorrendiségét biztosítja oly módon, hogy sorba rendezi a megfelelő egységeket a kezdeményezésüket figyelembe véve.
+     *
+     * <p>A rendezéshez egy nagyon egyszerű Bubble-sort van használva, illetve több tömb is fel van töltve a használhatóság megkönnyítéséért.
+     * El van tárolva az is, hogy melyik játékos következik, viszont párhuzamosan vele, például, az is, hogy melyik egység.</p>
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     * @return egy olyan tömb, amely fel lett töltve olyan információval, hogy éppen melyik játékos következik
+     */
     public static Jatekos[] feltoltLepesLista(Jatekos jatekos, Jatekos szGep) {
         egysegLista = new Egyseg[hanyLepes(jatekos, szGep)];
         Jatekos[] resLepesLista = new Jatekos[hanyLepes(jatekos, szGep)];
@@ -473,6 +515,13 @@ public class Kor {
         return resLepesLista;
     }
 
+    /**
+     * Eldönti, hogy várhatóan hány lépés lesz az aktuális körben, gyakorlatilag, hogy hány megfelelő egységgel rendelkezik a két játékos.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     * @return a fent említetteknek a száma
+     */
     public static int hanyLepes(Jatekos jatekos, Jatekos szGep) {
         int res = 0;
         for (int i = 0; i < jatekos.egysegek.length; i++) {
@@ -484,6 +533,12 @@ public class Kor {
         return res;
     }
 
+    /**
+     * Az X koordináta bekérése a usertől.
+     *
+     * @param elsoSor milyen szöveggel találkozzon a user, éppen mihez tartozik a koordináta
+     * @return az előírásoknak megfelelő X koordináta
+     */
     public static int chooseX(String elsoSor) {
         int koordX = 0;
         System.out.println(elsoSor);
@@ -507,6 +562,11 @@ public class Kor {
         return koordX;
     }
 
+    /**
+     * Az Y koordináta bekérése a usertől.
+     *
+     * @return az előírásoknak megfelelő Y koordináta
+     */
     public static int chooseY() {
         int koordY = 0;
         System.out.print("[!] Y koordinata (melyik oszlop): ");
@@ -530,12 +590,28 @@ public class Kor {
         return koordY;
     }
 
+    /**
+     * Újra kirajzolja a pályát, igazából a Pálya egyik metódusához ad hozzá két sortörést.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     */
     public static void repaint(Jatekos jatekos, Jatekos szGep) {
         System.out.println();
         Palya.repaintPalya(jatekos, szGep);
         System.out.println();
     }
 
+    /**
+     * Az egységet a jelenlegi helyéről a megadott helyre mozgatja.
+     *
+     * @param jelenlegiX a jelenlegi X koordináta
+     * @param jelenlegiY a jelenlegi Y koordináta
+     * @param hovaX hova szeretne lépni - X koordináta
+     * @param hovaY hova szeretne lépni - Y koordináta
+     * @param kiLep melyik játékos egységét kell mozgatni
+     * @return sikeres-e az operáció
+     */
     public static boolean mozgasMezore(int jelenlegiX, int jelenlegiY, int hovaX, int hovaY, Jatekos kiLep) { // nem konvertalt koordinatat var
         if (Palya.getMezok()[convertKoordinata(jelenlegiX)][convertKoordinata(jelenlegiY)].getKiBirtokolja() == kiLep && !Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].isFoglalt()) {
             Palya.getMezok()[convertKoordinata(hovaX)][convertKoordinata(hovaY)].setMezo(
@@ -553,6 +629,13 @@ public class Kor {
     }
 
 
+    /**
+     * Azt figyeli, hogy valamelyik játékos nyert-e, gyakorlatilag, hogy az ellenfélnek van-e még élő egysége.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép
+     * @return 1, ha a játékos nyert, 2, ha a számítógép nyert, 0, ha még egyikük sem
+     */
     public static int nyertValaki(Jatekos jatekos, Jatekos szGep) {
         // 1 - jatekos nyert
         // 2 - szamitogep nyert

@@ -1,5 +1,9 @@
 package Player;
 
+/**
+ * Az íjászt, egy speciális egységet megvalósító osztály egyetlen konstruktorral, amely megfelelően inicializálja az adattagokat.
+ */
+
 public class Ijasz extends Egyseg {
 
     public Ijasz() {

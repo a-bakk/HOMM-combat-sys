@@ -2,6 +2,13 @@ package Player;
 
 import JatekPalya.Palya;
 
+/**
+ * Az villámcsapás varázslatot valósítja meg az osztály.
+ *
+ * <p>Egyetlen metódusa a különlegesHatás, mely egy adott ellenséget sebez varázserőnek a harmincszorosával.</p>
+ */
+
+
 public class Villamcsapas extends Varazslat {
 
     public Villamcsapas() {
@@ -10,6 +17,15 @@ public class Villamcsapas extends Varazslat {
         this.mannaKoltseg = 5;
     }
 
+    /**
+     * Az villámcsapás varászlat hatását valósítja meg, meggyógyíthat egy egységet.
+     *
+     * @param kiTamad ki használja a varázslatot
+     * @param kitTamad ki az elszenvedő
+     * @param koordX melyik egységen szeretnénk használni, X koordináta
+     * @param koordY melyik egységen szeretnénk használni, Y koordináta
+     * @return a sikeres varázslás szöveges formában
+     */
     @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) {
         int sebzes = kiTamad.jatekosHose.getVarazsero() * 30;

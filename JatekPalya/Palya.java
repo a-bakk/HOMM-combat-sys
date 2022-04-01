@@ -4,14 +4,36 @@ import Player.*;
 
 import java.util.LinkedList;
 
+/**
+ * Az osztály valósítja meg magát a játékpályát, kiegészítve kirajzoló, feltöltő és keresési metódusokkal.
+ */
+
 public class Palya {
 
+    /**
+     * A pálya sorainak száma, állandó.
+     */
     private static final int PALYAMERET_S = 10;
+    /**
+     * A pálya oszlopainak a száma, állandó.
+     */
     private static final int PALYAMERET_O = 12;
+    /**
+     * A kiegészített pálya sorainak a száma. Olyan információkkal egészül ki, mint például a játékosok aranyának és mannájának a megjelenítése, vagy kitöltő mezők.
+     */
     private static final int PALYAMERET_S_EXTENDED = 11;
+    /**
+     * A kiegészített pálya oszlopainak a száma.
+     */
     private static final int PALYAMERET_O_EXTENDED = 16;
+    /**
+     * Magát a pályát tároló kétdimenziós, Mezőkből álló tömb.
+     */
     static Mezo[][] mezok = new Mezo[10][12];
 
+    /**
+     * Létrehozza a kétdimenziós tömb mezőit.
+     */
     public static void setMezok() {
         for (int i = 0; i < PALYAMERET_S; i++) {
             for (int j = 0; j < PALYAMERET_O; j++) {
@@ -20,6 +42,9 @@ public class Palya {
         }
     }
 
+    /**
+     * A mezők tartalmát frissíti.
+     */
     public static void updateMezok() {
         for (int i = 0; i < PALYAMERET_S; i++) {
             for (int j = 0; j < PALYAMERET_O; j++) {
@@ -30,19 +55,47 @@ public class Palya {
         }
     }
 
+    /**
+     * Újra rajzolja a pályát úgy, hogy előtte frissíti a megjelenítendő mezőket.
+     *
+     * @param jatekos1 a bal oldali játékos
+     * @param jatekos2 a jobb oldali játékos
+     */
     public static void repaintPalya(Jatekos jatekos1, Jatekos jatekos2) {
         updateMezok();
         paintPalya(jatekos1, jatekos2);
     }
 
+    /**
+     * Foglalt-e a lekérdezett mező, az egyszerűbb hívásért.
+     *
+     * @param koordX a lekérdezett mező X koordinátája
+     * @param koordY a lekérdezett mező Y koordinátája
+     * @return foglalt-e a mező
+     */
     public static boolean foglalt(int koordX, int koordY) {
         return mezok[koordX][koordY].isFoglalt();
     }
 
+    /**
+     * Gyakorlatilag elhelyez egy új egységet a pályán, lefoglalja neki a helyet.
+     *
+     * @param koordX hol legyen az egység, X koordináta
+     * @param koordY hol legyen az egység, Y koordináta
+     * @param milyenEgyseg milyen egység érkezik, szöveges forma
+     * @param kinek melyik játékosé az egység
+     * @param melyikEgyseg milyen egység objektum érkezik
+     */
     public static void mezoFoglal(int koordX, int koordY, String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {
         mezok[koordX][koordY].setMezo(milyenEgyseg, kinek, melyikEgyseg);
     }
 
+    /**
+     * A számítógép minimális intelligenciájához, megkeresi a hozzá legközelebbi egységet, hátulról.
+     *
+     * @param jatekos az ellenfélt jelöli, övé-e a keresett egység
+     * @return az egység, amely hátulról az első és az ellenfélé
+     */
     public static Egyseg getLastPlayerEgyseg(Jatekos jatekos) {
         for (int i = PALYAMERET_S - 1; i >= 0; i--) {
             for (int j = PALYAMERET_O - 1; j >= 0; j--) {
@@ -54,6 +107,14 @@ public class Palya {
         return null;
     }
 
+    /**
+     * Van-e olyan egység, amelyet a számítógép meg tud támadni.
+     *
+     * @param jatekos az ellenfélé-e az egység
+     * @param koordX melyik egység körül keressen, X koordináta
+     * @param koordY melyik egység körül keressen, Y koordináta
+     * @return ha talált, az egység ami támadható, amúgy null
+     */
     public static Egyseg vanSzGepKozelbenEgyseg(Jatekos jatekos, int koordX, int koordY) {
         if (koordX - 1 >= 0 && koordY - 1 >= 0) {
             if (mezok[koordX-1][koordY-1].getKiBirtokolja() == jatekos)
@@ -90,6 +151,14 @@ public class Palya {
         return null;
     }
 
+    /**
+     * A játékos általt választott mező megfelel-e a követelményeknek, valóban a számítógépé-e, esetleg üres.
+     *
+     * @param koordX a választott egység X koordinátája
+     * @param koordY a választott egység Y koordinátája
+     * @param kitTamad a játékos, akinek a támadható egységét keresi, itt a számítógép
+     * @return ha megfelelő az egység, akkor ő, ha nem, null
+     */
     public static Egyseg chooseMezoEnemyLetezik(int koordX, int koordY, Jatekos kitTamad) {
 
         if (!foglalt(koordX, koordY)) {
@@ -103,6 +172,12 @@ public class Palya {
         return null;
     }
 
+    /**
+     * Kirajzolja a teljes, kibővített pályát a játékosok információival, egységeivel.
+     *
+     * @param jatekos1 a bal oldali játékos
+     * @param jatekos2 a jobb oldali játékos
+     */
     public static void paintPalya(Jatekos jatekos1, Jatekos jatekos2) {
         final String ures = "               ";
         final String hatosUres = "      ";
@@ -219,6 +294,12 @@ public class Palya {
         return mezok;
     }
 
+    /**
+     * A lekérdezett egység aktuális, X koordinátája.
+     *
+     * @param egyseg melyik egységről van szó
+     * @return ha megtalálja, a megfelelő koordináta, ha nem, 0
+     */
     public static int getIndexX(Egyseg egyseg) {
         for (int i = 0; i < PALYAMERET_S; i++) {
             for (int j = 0; j < PALYAMERET_O; j++) {
@@ -228,6 +309,12 @@ public class Palya {
         return 0;
     }
 
+    /**
+     * A lekérdezett egység aktuális, Y koordinátája.
+     *
+     * @param egyseg melyik egységről van szó
+     * @return ha megtalálja, a megfelelő koordináta, ha nem, 0
+     */
     public static int getIndexY(Egyseg egyseg) {
         for (int i = 0; i < PALYAMERET_S; i++) {
             for (int j = 0; j < PALYAMERET_O; j++) {
@@ -237,6 +324,21 @@ public class Palya {
         return 0;
     }
 
+    /**
+     * Eldönti, hogy létezik-e a kezdő és vég pont között járható út. Ha igen, akkor ezek közül a legrövidebbet adja vissza.
+     *
+     * <p>A metódus a Breadth First Search algoritmust próbálja implementálni, 8-szomszédossággal, kétdimenziós tömbben. A bejárt mezőket számontartva mindig bővíti
+     * a keresési teret, egészen addig, ameddig megfelelő útvonalat talál, ha van ilyen. A megfelelő mezőket a varakozasiSor láncolt listában
+     * tárolja, ami gyakorlatilag egy Queue, viszont, ha minden igaz, a láncolt lista alapból a Queue interfacet (is) implementálja, ezért
+     * működés szempontjából itt megfelelő.</p>
+     *
+     * @param mezok milyen mezők között keresi az útvonalat
+     * @param startX kezdő X koordináta
+     * @param startY kezdő Y koordináta
+     * @param vegX az út végének X koordinátája
+     * @param vegY az út végének Y koordinátája
+     * @return ha létezik út, a legrövidebb úthoz szükséges lépések száma, ha nincs, -1
+     */
     public static int palyaBreadthFirstSearch(Mezo[][] mezok, int startX, int startY, int vegX, int vegY) {
 
         if (!mezok[startX][startY].isFoglalt() || mezok[vegX][vegY].isFoglalt())

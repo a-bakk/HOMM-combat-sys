@@ -3,21 +3,72 @@ package Player;
 import GameManager.GameManager;
 import JatekPalya.Palya;
 
+/**
+ * Az egységeket leíró osztály. Metódusai tartalmaznak beállítást, lekérést, csatabeli sebzéseknek a számítását.
+ */
+
 public class Egyseg {
 
+    /**
+     * Az egység ára.
+     */
     protected int ar;
+    /**
+     * A sebzésintervallum alja.
+     */
     protected int minSebzes;
+    /**
+     * Egység egy példányának az élterereje.
+     */
     protected int eletero;
+    /**
+     * Az egység sebessége.
+     */
     protected int sebesseg;
+    /**
+     * Az egység kezdeményezése.
+     */
     protected int kezdemenyezes;
+    /**
+     * Az egység speciális képessége szövegként.
+     */
     protected String specKepesseg;
+    /**
+     * A sebzésintervallum teteje.
+     */
     protected int maxSebzes;
-    protected int hanyVan; //adott egysegbol hany van
+    /**
+     * Adott egységből hánnyal rendelkezik a játékos.
+     */
+    protected int hanyVan;
+    /**
+     * Az egység már el van-e helyezve a pályán.
+     */
     protected boolean elhelyezett;
+    /**
+     * Az egység összes példányának az összesített életereje.
+     */
     protected int osszEletero;
+    /**
+     * A maximális életerő, amivel az egység rendelkezhet, a játék elején állítódik be.
+     */
     protected int maxEletero;
+    /**
+     * Az egység a körben táamdott-e vissza.
+     */
     protected boolean visszatamadott;
 
+    /**
+     * Az egységek megvásárlásáért felelős metódus. A tranzakció sikerességéről tájékoztatja a játékost.
+     *
+     * <p>Emelett ellenőrzi, hogy a vásárláshoz elegendő aranya van-e a játékosnak. Ha sikeres, levonja
+     * az egységek árát az aranyból, ha nem, hibaüzenettel jelez vissza.</p>
+     *
+     * @param kinek melyik játékos vásárol egységeket
+     * @param milyenEgyseg milyen egységeket szeretne vásárolni, szöveges formában
+     * @param hanyat hány egységet szeretne vásárolni
+     * @return sikeres-e a tranzakció
+     */
     public static boolean buyEgysegek(Jatekos kinek, String milyenEgyseg, int hanyat) {
         System.out.println();
         boolean sikeres = false;
@@ -75,6 +126,13 @@ public class Egyseg {
 
     }
 
+    /**
+     * Ismert egységből a nevének a lekérdezése.
+     *
+     * @param jatekos melyik játékos egységéről van szó
+     * @param egyseg milyen egységnek a neve szükséges
+     * @return az egység neve szöveges formában
+     */
     public static String egysegNev(Jatekos jatekos, Egyseg egyseg) {
         if (egyseg == jatekos.egysegek[0]) {
             return "foldmuves";
@@ -94,6 +152,15 @@ public class Egyseg {
         return null;
     }
 
+    /**
+     * A pályán való kiíratás szövegezését valósítja meg.
+     *
+     * <p>A kiíratásban szerepel például, hogy melyik játékosé az egység, milyen egység, hány van belőle, mind rövidített formában.</p>
+     *
+     * @param kinek melyik játékosról van szó
+     * @param milyenEgyseg milyen egységről van szó
+     * @return a kiírandó szöveg
+     */
     public static String toString(Jatekos kinek, String milyenEgyseg) {
 
         char kezdobetu = '-'; // - HIBA
@@ -143,6 +210,11 @@ public class Egyseg {
         return " --------- ";
     }
 
+    /**
+     * A játékos egységeit listázza, ha rendelkezik velük, illetve, hogy hány van belőlük.
+     *
+     * @param kinek melyik játékosnak az egységeik szeretnénk listázni
+     */
     public static void listEgysegek(Jatekos kinek) {
         for (int i = 0; i < kinek.egysegek.length; i++) {
             if (kinek.egysegek[i].hanyVan != 0) {
@@ -173,6 +245,13 @@ public class Egyseg {
         System.out.println();
     }
 
+    /**
+     * Megmondja, hogy van az egység, amellyel a játékos ugyan rendelkezik, el van-e helyezve a pályán.
+     *
+     * @param kinek melyik játékosról van szó
+     * @param milyenEgyseg milyen egység, amiről szeretnénk megtudni az információt
+     * @return igen, ha még nincs elhelyezve, nem ellenkező esetben
+     */
     public static boolean vanEgyseg(Jatekos kinek, String milyenEgyseg) {
         for (int i = 0; i < kinek.egysegek.length; i++) {
             if ("foldmuves".equals(milyenEgyseg) || "ijasz".equals(milyenEgyseg) || "griff".equals(milyenEgyseg) || "hobgoblin".equals(milyenEgyseg) || "demon".equals(milyenEgyseg)) {
@@ -208,6 +287,12 @@ public class Egyseg {
         return false;
     }
 
+    /**
+     * Hány egységgel rendelkezik a játékos.
+     *
+     * @param kinek melyik játékosról van szó
+     * @return hány egységgel rendelkezik a játékos
+     */
     public static int hanyEgyseg(Jatekos kinek) {
         int res = 0;
         for (int i = 0; i < kinek.egysegek.length; i++) {
@@ -216,6 +301,12 @@ public class Egyseg {
         return res;
     }
 
+    /**
+     * Adott egységnek átállítja az elhelyezettségét.
+     *
+     * @param milyenEgyseg milyen egységet szeretnénk beállítani
+     * @param kinek melyik játékos rendelkezik az egységgel
+     */
     public static void setElhelyezettTrue(String milyenEgyseg, Jatekos kinek) {
         switch (milyenEgyseg) {
             case "foldmuves" -> kinek.egysegek[0].elhelyezett = true;
@@ -226,6 +317,12 @@ public class Egyseg {
         }
     }
 
+    /**
+     * Az összes egység visszatámadott attribútumát hamisra állítja, a körök elején van meghívva.
+     *
+     * @param jatekos a nem-gépi játékos
+     * @param szGep a számítógép-ellenfél
+     */
     public static void setVisszatamadottFalse(Jatekos jatekos, Jatekos szGep) {
         for (int i = 0; i < jatekos.egysegek.length; i++) {
             jatekos.egysegek[i].visszatamadott = false;
@@ -243,6 +340,13 @@ public class Egyseg {
         this.visszatamadott = visszatamadott;
     }
 
+    /**
+     * Hasonló az egységNév()-hez, viszont fordítva működik: ha ismert az egység neve, visszaadja, hogy az milyen egység.
+     *
+     * @param milyenEgyseg milyen egységről van szó, szöveges formában
+     * @param kinek melyik játékosról van szó
+     * @return az egység, melyet a neve alapján keresünk
+     */
     public static Egyseg resolveEgyseg(String milyenEgyseg, Jatekos kinek) {
         switch (milyenEgyseg) {
             case "foldmuves" -> {
@@ -264,6 +368,13 @@ public class Egyseg {
         return null;
     }
 
+    /**
+     * Egy egység támadását valósítja meg.
+     *
+     * @param tamado melyik játékos támad
+     * @param melyikEgyseg melyik egység szenvedi el a támadást
+     * @return a támadás sikeressége szövegesen
+     */
     public static String tisztaHosSebzestKap(Jatekos tamado, Egyseg melyikEgyseg) {
         int teljesSebzes = tamado.jatekosHose.getTamadas() * 10;
         melyikEgyseg.setOsszEletero(melyikEgyseg.getOsszEletero() - teljesSebzes);
@@ -283,6 +394,12 @@ public class Egyseg {
         }
     }
 
+    /**
+     * A hobgoblin speciális képességét valósítja meg, végzetesen megmérgezi az egység egy példányát.
+     *
+     * @param celpont melyik egység szenvedi el a mérgezést
+     * @return a mérgezés sikeressége szövegesen
+     */
     public static String hobgoblinMergezestKap(Egyseg celpont) {
         celpont.setOsszEletero(celpont.getOsszEletero() - celpont.getEletero());
         celpont.setHanyVan(celpont.getHanyVan() - 1);
@@ -293,6 +410,16 @@ public class Egyseg {
         return "[~] A mergezes sikeres, az ellenfel egysegenek egy peldanya meghalt!";
     }
 
+    /**
+     * Eldönti, hogy van-e szomszédos ellenfél a lekérdezett egység közvetlen környezetében.
+     *
+     * @param szenvedo ki szenvedi el a támadást
+     * @param koordX a lekérdezett egység X koordinátája
+     * @param koordY a lekérdezett egység Y koordinátája
+     * @param tamadX a támadó egység X koordinátája
+     * @param tamadY a támadó egység Y koordinátája
+     * @return ha van ilyen, igaz, ha nincs, hamis
+     */
     public static boolean szomszedosEllenfel(Jatekos szenvedo, int koordX, int koordY, int tamadX, int tamadY) {
 
         if (Palya.getMezok()[tamadX][tamadY].getKiBirtokolja() == szenvedo && Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getEletero() != 0) {
@@ -332,15 +459,24 @@ public class Egyseg {
         return false;
     }
 
+    /**
+     * Az adott egységet sebzik, a metódus kiszámítja a megfelelő sebzéseket és levonja a támadott egység életerejéből, frissíti azt, hogy hány marad.
+     *
+     * @param kitTamad ki szenvedi el a támadást
+     * @param tamado ki a támadó
+     * @param koordX a támadó egységének X koordinátája
+     * @param koordY a támadó egységének Y koordinátája
+     * @return a támadás sikeressége szövegesen
+     */
     public String sebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
-        System.out.println("[ezcsakteszt:D] alapsebzes: " + alapSebzes);
+        //System.out.println("[ezcsakteszt] alapsebzes: " + alapSebzes);
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
-        System.out.println("[ezcsakteszt:D] tamadosebzes: " + tamadoSebzes);
+        //System.out.println("[ezcsakteszt] tamadosebzes: " + tamadoSebzes);
         double sajatVedekezes = 1.0 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
-        int vegsoSebzes = (int)Math.round((tamadoSebzes * sajatVedekezes)); //TODO MATH.ROUND / MATH.FLOOR?
-        System.out.println("[ezcsakteszt:D] vegsosebzes: " + vegsoSebzes);
+        int vegsoSebzes = (int)Math.round((tamadoSebzes * sajatVedekezes));
+        //System.out.println("[ezcsakteszt] vegsosebzes: " + vegsoSebzes);
 
         double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
         if (Math.random() <= kritEsely) {
@@ -364,6 +500,17 @@ public class Egyseg {
         return "[~] Sikeres tamadas!";
     }
 
+    /**
+     * Az egységet visszatámadják. Kiszámítja a megfelelő sebzést, igazít a visszatámadott egység életerején, darabszámán.
+     *
+     * <p>Tekintettel arra, hogy a dokumentáció nem specifikálta, visszatámadásnál is lehetséges kritikus sebzést okozni.</p>
+     *
+     * @param kitTamad a visszatámadást elszenvedő játékos
+     * @param tamado a visszatámadó játékos
+     * @param koordX a visszatámadó játékos egységének X koordinátája
+     * @param koordY a visszatámadó játékos egységének Y koordinátája
+     * @return a visszatámadás sikeressége szövegesen
+     */
     public String visszatamadasSebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();

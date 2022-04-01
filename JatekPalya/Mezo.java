@@ -2,13 +2,34 @@ package JatekPalya;
 
 import Player.*;
 
+/**
+ * Az osztály tárol mindent, ami a különböző mezőkhöz kapcsolódik, amelyekből felépül a pálya.
+ */
 public class Mezo {
 
+    /**
+     * Foglalt-e éppen a mező.
+     */
     private boolean foglalt;
+    /**
+     * A tartalom szöveges formában.
+     */
     private String tartalom;
+    /**
+     * Az egység, amelyet a mező éppen tárol.
+     */
     private Egyseg tartalomEgyseg;
+    /**
+     * Melyik játékoshoz köthető a mező.
+     */
     private Jatekos kiBirtokolja;
+    /**
+     * Az egység, amelyet tartalmaz szöveges formában.
+     */
     private String milyenEgyseg;
+    /**
+     * A megjelenítendő üres tartalom.
+     */
     private final String defaultTartalom;
 
     public Mezo() {
@@ -39,6 +60,7 @@ public class Mezo {
     public String getDefaultTartalom() {
         return defaultTartalom;
     }
+
 
     public void setMezo(String milyenEgyseg, Jatekos kinek, Egyseg melyikEgyseg) {
         this.kiBirtokolja = kinek;

@@ -2,6 +2,12 @@ package Player;
 
 import JatekPalya.*;
 
+/**
+ * Az tűzlabda varázslatot valósítja meg az osztály.
+ *
+ * <p>Egyetlen metódusa a különlegesHatás, mely egy adott mező körüli összes egységet sebzi a varázserőnek a húszszorosával.</p>
+ */
+
 public class Tuzlabda extends Varazslat {
 
     public Tuzlabda() {
@@ -10,7 +16,15 @@ public class Tuzlabda extends Varazslat {
         this.mannaKoltseg = 9;
     }
 
-
+    /**
+     * Az tűzlabda varázslat hatását valósítja meg, egy mezőt körbejárva sebzi az egységeket.
+     *
+     * @param kiTamad ki használja a varázslatot
+     * @param kitTamad ki az elszenvedő
+     * @param koordX melyik mezőn szeretnénk használni, X koordináta
+     * @param koordY melyik mezőn szeretnénk használni, Y koordináta
+     * @return a sikeres varázslás szöveges formában
+     */
     @Override
     public String kulonlegesHatas(Jatekos kiTamad, Jatekos kitTamad, int koordX, int koordY) { // konvertalt koordinatakkal mukodik
         int sebzes = kiTamad.jatekosHose.getVarazsero() * 20;
@@ -42,6 +56,13 @@ public class Tuzlabda extends Varazslat {
         return "[~] Sikeres tuzlabda magia! Az egysegek a megadott mezo korul sebzodtek!";
     }
 
+    /**
+     * A sebzés utáni egységek darabszámát szabályozza.
+     *
+     * @param koordX melyik egységről van szó, X koordináta
+     * @param koordY melyik egységről van szó, Y koordináta
+     * @param sebzes mennyivel lett sebezve az egység
+     */
     private void foglaltMezoSebzodik(int koordX, int koordY, int sebzes) {
         if (Palya.getMezok()[koordX][koordY].isFoglalt()) {
             Palya.getMezok()[koordX][koordY].getTartalomEgyseg().setOsszEletero(Palya.getMezok()[koordX][koordY].getTartalomEgyseg().getOsszEletero() - sebzes);

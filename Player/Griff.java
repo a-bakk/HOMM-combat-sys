@@ -1,5 +1,9 @@
 package Player;
 
+/**
+ * A griffet, egy speciális egységet megvalósító osztály egyetlen konstruktorral, amely megfelelően inicializálja az adattagokat.
+ */
+
 public class Griff extends Egyseg {
 
     public Griff() {

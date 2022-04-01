@@ -2,13 +2,35 @@ package Player;
 
 import GameManager.*;
 
+/**
+ * A hőst reprezentáló osztály, mely leginkább annak tudáspontjaiért, megfelelő elosztásukért felel.
+ */
+
 public class Hos {
 
+    /**
+     * A hős tamadás tulajdonsága.
+     */
     private int tamadas = 1;
+    /**
+     * A hős védekezés tulajdonsága.
+     */
     private int vedekezes = 1;
+    /**
+     * A hős varázserő tulajdonsága.
+     */
     private int varazsero = 1;
+    /**
+     * A hős tudás tulajdonsága.
+     */
     private int tudas = 1;
+    /**
+     * A hős morál tulajdonsága.
+     */
     private int moral = 1;
+    /**
+     * A hős szerencse tulajdonsága.
+     */
     private int szerencse = 1;
 
     //region getterek
@@ -37,6 +59,12 @@ public class Hos {
     }
     //endregion
 
+    /**
+     * Tulajdonságok vásárlásáért felelő metódus. Ellenőrzi, hogy van-e elég arany, és hogy adott tulajdonság elérte-e a maximális értékét.
+     *
+     * @param kinek melyik játékos vásárol tulajdonságot
+     * @param tulajdonsag milyen tulajdonságról van szó, szöveges formában
+     */
     public void tulajdonsagNovelo(Jatekos kinek, String tulajdonsag) {
         System.out.println();
         boolean sikeres = false;
@@ -96,14 +124,10 @@ public class Hos {
         }
     }
 
-    public void setTamadas(int tamadas) {
-        this.tamadas = tamadas;
-    }
-
+    public void setTamadas(int tamadas) { this.tamadas = tamadas; }
     public void setTudas(int tudas) {
         this.tudas = tudas;
     }
-
     public void setMoral(int moral) {
         this.moral = moral;
     }
