@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import GameManager.*;
+import gamemanager.*;
 
 /**
  * A hőst reprezentáló osztály, mely leginkább annak tudáspontjaiért, megfelelő elosztásukért felel.
@@ -131,5 +131,5 @@ public class Hos {
     public void setMoral(int moral) {
         this.moral = moral;
     }
-
+    public void setVedekezes(int vedekezes) { this.vedekezes = vedekezes; }
 }

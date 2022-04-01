@@ -1,6 +1,6 @@
-package JatekPalya;
+package jatekpalya;
 
-import Player.*;
+import player.*;
 
 import java.util.LinkedList;
 

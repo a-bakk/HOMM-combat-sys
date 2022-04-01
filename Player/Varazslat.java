@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import GameManager.*;
+import gamemanager.*;
 
 /**
  * A varázslatoknak általános megvalósítása. Tekintettel arra, hogy minden varázslat máshogyan működik, absztrakt.

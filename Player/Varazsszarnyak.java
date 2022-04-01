@@ -1,4 +1,4 @@
-package Player;
+package player;
 
 /**
  * Az varázsszárnyak varázslatot valósítja meg az osztály.

@@ -1,7 +1,7 @@
-import GameManager.*;
-import GameManager.Rounds.*;
-import Player.*;
-import JatekPalya.*;
+import gamemanager.*;
+import gamemanager.rounds.*;
+import player.*;
+import jatekpalya.*;
 
 /**
  * A Heroes of Might & Magic harcrendszerének leegyszerűsített változata.
@@ -57,7 +57,7 @@ public class Main {
         }
 
         System.out.println();
-        System.out.println(Kor.getKiNyert() == jatekos ? "[!] Gyoztel!!!" : "[!] Sajnos az ellenfel gyozott!");
+        System.out.println(Kor.getKiNyert() == jatekos ? "[!] Gyoztel!!!" : (Kor.getKiNyert() == szGep ? "[!] Sajnos az ellenfel gyozott!" : "[!] Dontetlen!"));
         System.out.println();
 
     }

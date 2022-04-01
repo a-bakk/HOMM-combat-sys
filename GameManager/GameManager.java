@@ -1,7 +1,7 @@
-package GameManager;
+package gamemanager;
 
-import JatekPalya.Palya;
-import Player.*;
+import jatekpalya.Palya;
+import player.*;
 
 import java.util.Scanner;
 
@@ -415,8 +415,8 @@ public class GameManager {
      * @param szGep a számítógép
      */
     public static void updateTudas(Jatekos jatekos, Jatekos szGep) {
-        jatekos.setManna(jatekos.jatekosHose.getTudas() * 10);
-        szGep.setManna(szGep.jatekosHose.getTudas() * 10);
+        if (jatekos.jatekosHose.getTudas() >= 1) jatekos.setManna(jatekos.jatekosHose.getTudas() * 10);
+        if (szGep.jatekosHose.getTudas() >= 1) szGep.setManna(szGep.jatekosHose.getTudas() * 10);
     }
 
     /**
@@ -458,7 +458,7 @@ public class GameManager {
      * @return a generált, random szám
      */
     public static int mathRandom(int min, int max) {
-        return min + (int)(Math.random() * ((max - min) + 1));
+        return Math.abs(min + (int)(Math.random() * ((max - min) + 1)));
     }
 
     /**

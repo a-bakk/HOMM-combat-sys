@@ -1,4 +1,4 @@
-package Player;
+package player;
 
 /**
  * Az íjászt, egy speciális egységet megvalósító osztály egyetlen konstruktorral, amely megfelelően inicializálja az adattagokat.

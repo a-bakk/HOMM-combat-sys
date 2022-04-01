@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import JatekPalya.*;
+import jatekpalya.*;
 
 /**
  * Az tűzlabda varázslatot valósítja meg az osztály.

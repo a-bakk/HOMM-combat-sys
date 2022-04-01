@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import JatekPalya.Palya;
+import jatekpalya.Palya;
 
 /**
  * Az feltámasztás varázslatot valósítja meg az osztály.

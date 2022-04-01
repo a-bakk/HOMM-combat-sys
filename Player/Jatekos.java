@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import GameManager.*;
+import gamemanager.*;
 
 /**
  * A játékost reprezentáló osztály, mely biztosít a játékosnak egységeket, varázslatokat, hőst.

@@ -1,7 +1,7 @@
-package Player;
+package player;
 
-import GameManager.GameManager;
-import JatekPalya.Palya;
+import gamemanager.GameManager;
+import jatekpalya.Palya;
 
 /**
  * Az egységeket leíró osztály. Metódusai tartalmaznak beállítást, lekérést, csatabeli sebzéseknek a számítását.
@@ -62,7 +62,8 @@ public class Egyseg {
      * Az egységek megvásárlásáért felelős metódus. A tranzakció sikerességéről tájékoztatja a játékost.
      *
      * <p>Emelett ellenőrzi, hogy a vásárláshoz elegendő aranya van-e a játékosnak. Ha sikeres, levonja
-     * az egységek árát az aranyból, ha nem, hibaüzenettel jelez vissza.</p>
+     * az egységek árát az aranyból, ha nem, hibaüzenettel jelez vissza. Ha negatív számút szeretnénk vásárolni,
+     * abszolút értékkel folytatja a vásárlást.</p>
      *
      * @param kinek melyik játékos vásárol egységeket
      * @param milyenEgyseg milyen egységeket szeretne vásárolni, szöveges formában
@@ -72,6 +73,7 @@ public class Egyseg {
     public static boolean buyEgysegek(Jatekos kinek, String milyenEgyseg, int hanyat) {
         System.out.println();
         boolean sikeres = false;
+        if (hanyat < 0) hanyat = Math.abs(hanyat);
         switch (milyenEgyseg) {
             case "foldmuves" -> {
                 if (kinek.arany >= hanyat * kinek.egysegek[0].ar) {
@@ -112,6 +114,10 @@ public class Egyseg {
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
+            }
+            default -> {
+                System.out.println("[!] Sikertelen! Nem letezik ilyen egyseg!");
+                return false;
             }
         }
         if (sikeres) {
@@ -401,6 +407,7 @@ public class Egyseg {
      * @return a mérgezés sikeressége szövegesen
      */
     public static String hobgoblinMergezestKap(Egyseg celpont) {
+        if (celpont == null) return null;
         celpont.setOsszEletero(celpont.getOsszEletero() - celpont.getEletero());
         celpont.setHanyVan(celpont.getHanyVan() - 1);
         if (celpont.getOsszEletero() <= 0) {

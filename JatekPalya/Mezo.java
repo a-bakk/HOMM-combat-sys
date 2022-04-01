@@ -1,6 +1,6 @@
-package JatekPalya;
+package jatekpalya;
 
-import Player.*;
+import player.*;
 
 /**
  * Az osztály tárol mindent, ami a különböző mezőkhöz kapcsolódik, amelyekből felépül a pálya.

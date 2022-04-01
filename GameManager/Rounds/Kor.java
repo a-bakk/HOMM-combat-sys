@@ -1,7 +1,7 @@
-package GameManager.Rounds;
+package gamemanager.rounds;
 
-import JatekPalya.Palya;
-import Player.*;
+import jatekpalya.Palya;
+import player.*;
 
 import java.util.Scanner;
 
@@ -85,7 +85,7 @@ public class Kor {
                                     System.out.println();
                                     //updateLepesLista(celpont);
                                     if (nyertValaki(jatekos, szGep) != 0) {
-                                        kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                        kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                         gyozelemKondicio = true;
                                         break korFutasa;
                                     }
@@ -192,7 +192,7 @@ public class Kor {
                                             jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[1].getMannaKoltseg());
                                             repaint(jatekos, szGep);
                                             if (nyertValaki(jatekos, szGep) != 0) {
-                                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                                 gyozelemKondicio = true;
                                                 break korFutasa;
                                             }
@@ -222,7 +222,7 @@ public class Kor {
                                         jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[3].getMannaKoltseg());
                                         repaint(jatekos, szGep);
                                         if (nyertValaki(jatekos, szGep) != 0) {
-                                            kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                            kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                             gyozelemKondicio = true;
                                             break korFutasa;
                                         }
@@ -262,7 +262,7 @@ public class Kor {
                             System.out.println(Egyseg.hobgoblinMergezestKap(celpont));
                             //updateLepesLista(celpont);
                             if (nyertValaki(jatekos, szGep) != 0) {
-                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                 gyozelemKondicio = true;
                                 break;
                             }
@@ -316,7 +316,7 @@ public class Kor {
                                 if (celpont != null) {
                                     System.out.println(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().sebzestKap(szGep, jatekos, sajatX, sajatY) + " "); // tamadas
                                     if (nyertValaki(jatekos, szGep) != 0) {
-                                        kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                        kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                         gyozelemKondicio = true;
                                         break korFutasa;
                                     }
@@ -326,7 +326,7 @@ public class Kor {
                                                 System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY)) + " "); // visszatamadas
                                                 Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
                                                 if (nyertValaki(jatekos, szGep) != 0) {
-                                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                                     gyozelemKondicio = true;
                                                     break korFutasa;
                                                 }
@@ -341,7 +341,7 @@ public class Kor {
                             if (Egyseg.szomszedosEllenfel(szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
                                 System.out.println(Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().sebzestKap(szGep, jatekos, sajatX, sajatY)); // tamadas
                                 if (nyertValaki(jatekos, szGep) != 0) {
-                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                     gyozelemKondicio = true;
                                     break korFutasa;
                                 }
@@ -350,7 +350,7 @@ public class Kor {
                                         System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY))); // visszatamadas
                                         Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().setVisszatamadott(true);
                                         if (nyertValaki(jatekos, szGep) != 0) {
-                                            kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                            kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                             gyozelemKondicio = true;
                                             break korFutasa;
                                         }
@@ -379,7 +379,7 @@ public class Kor {
                             System.out.println("[!] Az ellenfel hose sikeresen megtamadta az egyik egysegedet!");
                             System.out.println();
                             if (nyertValaki(jatekos, szGep) != 0) {
-                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                 gyozelemKondicio = true;
                                 break;
                             }
@@ -410,7 +410,7 @@ public class Kor {
                                 egysegLista[lepesIndex].visszatamadasSebzestKap(szGep, jatekos, visszaX, visszaY); // visszatamadas
                                 potencialisCelpont.setVisszatamadott(true);
                                 if (nyertValaki(jatekos, szGep) != 0) {
-                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
+                                    kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                     gyozelemKondicio = true;
                                     break;
                                 }
@@ -525,10 +525,10 @@ public class Kor {
     public static int hanyLepes(Jatekos jatekos, Jatekos szGep) {
         int res = 0;
         for (int i = 0; i < jatekos.egysegek.length; i++) {
-            if (jatekos.egysegek[i].getHanyVan() != 0) res++;
+            if (jatekos.egysegek[i].getHanyVan() > 0) res++;
         }
         for (int i = 0; i < szGep.egysegek.length; i++) {
-            if (szGep.egysegek[i].getHanyVan() != 0) res++;
+            if (szGep.egysegek[i].getHanyVan() > 0) res++;
         }
         return res;
     }
@@ -634,22 +634,24 @@ public class Kor {
      *
      * @param jatekos a nem-gépi játékos
      * @param szGep a számítógép
-     * @return 1, ha a játékos nyert, 2, ha a számítógép nyert, 0, ha még egyikük sem
+     * @return 1, ha a játékos nyert, 2, ha a számítógép nyert, 3, ha döntetlenn,  0, ha még egyikük sem
      */
     public static int nyertValaki(Jatekos jatekos, Jatekos szGep) {
         // 1 - jatekos nyert
         // 2 - szamitogep nyert
-        boolean mindenOK = false;
+        boolean mindenOK1 = false;
         for (int i = 0; i < jatekos.egysegek.length; i++) {
-            if (jatekos.egysegek[i].getOsszEletero() > 0) { mindenOK = true; break; }
+            if (jatekos.egysegek[i].getOsszEletero() > 0) { mindenOK1 = true; break; }
         }
-        if (!mindenOK) return 2;
 
-        mindenOK = false;
+        boolean mindenOK2 = false;
         for (int j = 0; j < szGep.egysegek.length; j++) {
-            if (szGep.egysegek[j].getOsszEletero() > 0) { mindenOK = true; break; }
+            if (szGep.egysegek[j].getOsszEletero() > 0) { mindenOK2 = true; break; }
         }
-        if (!mindenOK) return 1;
+
+        if (!mindenOK1 && !mindenOK2) return 3;
+        if (!mindenOK1) return 2;
+        if (!mindenOK2) return 1;
 
         return 0;
     }
