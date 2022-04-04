@@ -384,4 +384,17 @@ public class Palya {
         return -1;
     }
 
+    /**
+     * Ellenőrzi, hogy halt-e meg egység a hívásig. Ha igen, akkor a mezőt, amelyen az egység elhelyezkedett, visszaállítja az alapértelmezett státuszba.
+     */
+    public static void cleanUpMezok() {
+        for (int i = 0; i < PALYAMERET_S; i++) {
+            for (int j = 0; j < PALYAMERET_O; j++) {
+                if (mezok[i][j].getTartalomEgyseg() != null && mezok[i][j].getTartalomEgyseg().getOsszEletero() <= 0) {
+                    mezok[i][j].resetMezo();
+                }
+            }
+        }
+    }
+
 }

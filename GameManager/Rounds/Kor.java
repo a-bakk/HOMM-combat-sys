@@ -89,6 +89,7 @@ public class Kor {
                                         gyozelemKondicio = true;
                                         break korFutasa;
                                     }
+                                    Palya.cleanUpMezok();
                                     jatekosHosAction = true;
                                     repaint(jatekos, szGep);
                                     break;
@@ -164,7 +165,7 @@ public class Kor {
 
                                 int koordX = 0, koordY = 0;
 
-                                if (!"armageddon".equals(varazslat) && !"varazsszarnyak".equals(varazslat)) {
+                                if (!"armageddon".equals(varazslat) && !"varazsszarnyak".equals(varazslat) && !"feltamasztas".equals(varazslat)) {
                                     koordX = chooseX("[!] Melyik egysegen/mezon szeretned hasznalni a varazslatot?");
                                     koordY = chooseY();
                                 }
@@ -181,6 +182,7 @@ public class Kor {
                                             kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : szGep;
                                             break korFutasa;
                                         }
+                                        Palya.cleanUpMezok();
                                         jatekosHosAction = true;
                                     }
                                     case "villamcsapas" -> {
@@ -196,6 +198,7 @@ public class Kor {
                                                 gyozelemKondicio = true;
                                                 break korFutasa;
                                             }
+                                            Palya.cleanUpMezok();
                                             jatekosHosAction = true;
                                         }
                                         else {
@@ -207,8 +210,6 @@ public class Kor {
                                             System.out.println();
                                             System.out.println(jatekos.varazslatok[2].kulonlegesHatas(jatekos, szGep, convertKoordinata(koordX), convertKoordinata(koordY)));
                                             System.out.println();
-                                            jatekos.setManna(jatekos.getManna() - jatekos.varazslatok[2].getMannaKoltseg());
-                                            repaint(jatekos, szGep);
                                             jatekosHosAction = true;
                                         }
                                         else {
@@ -226,6 +227,7 @@ public class Kor {
                                             gyozelemKondicio = true;
                                             break korFutasa;
                                         }
+                                        Palya.cleanUpMezok();
                                         jatekosHosAction = true;
                                     }
                                     case "varazsszarnyak" -> {
@@ -260,12 +262,12 @@ public class Kor {
                         Egyseg celpont = Palya.chooseMezoEnemyLetezik(convertKoordinata(tamadX), convertKoordinata(tamadY), szGep);
                         if (celpont != null) {
                             System.out.println(Egyseg.hobgoblinMergezestKap(celpont));
-                            //updateLepesLista(celpont);
                             if (nyertValaki(jatekos, szGep) != 0) {
                                 kiNyert = nyertValaki(jatekos, szGep) == 1 ? jatekos : (nyertValaki(jatekos, szGep) == 2 ? szGep : null);
                                 gyozelemKondicio = true;
                                 break;
                             }
+                            Palya.cleanUpMezok();
                             repaint(jatekos, szGep);
                         }
                         else {
@@ -320,6 +322,7 @@ public class Kor {
                                         gyozelemKondicio = true;
                                         break korFutasa;
                                     }
+                                    Palya.cleanUpMezok();
                                     if (Egyseg.szomszedosEllenfel(szGep, sajatX, sajatY, convertKoordinata(tamadX), convertKoordinata(tamadY))) {
                                         if (!Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().isVisszatamadott() || "griff".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg())) || "demon".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg()))) {
                                             if (Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().getOsszEletero() > 0) {
@@ -330,6 +333,7 @@ public class Kor {
                                                     gyozelemKondicio = true;
                                                     break korFutasa;
                                                 }
+                                                Palya.cleanUpMezok();
                                             }
                                         }
                                     }
@@ -345,6 +349,7 @@ public class Kor {
                                     gyozelemKondicio = true;
                                     break korFutasa;
                                 }
+                                Palya.cleanUpMezok();
                                 if (!Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().isVisszatamadott() || "griff".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg())) || "demon".equals(Egyseg.egysegNev(jatekos, Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg()))) {
                                     if (Palya.getMezok()[convertKoordinata(tamadX)][convertKoordinata(tamadY)].getTartalomEgyseg().getOsszEletero() > 0) {
                                         System.out.println(Palya.getMezok()[sajatX][sajatY].getTartalomEgyseg().visszatamadasSebzestKap(jatekos, szGep, convertKoordinata(tamadX), convertKoordinata(tamadY))); // visszatamadas
@@ -354,6 +359,7 @@ public class Kor {
                                             gyozelemKondicio = true;
                                             break korFutasa;
                                         }
+                                        Palya.cleanUpMezok();
                                     }
                                 }
                                 repaint(jatekos, szGep);
@@ -383,6 +389,7 @@ public class Kor {
                                 gyozelemKondicio = true;
                                 break;
                             }
+                            Palya.cleanUpMezok();
                             szGepHosAction = true;
                             repaint(jatekos, szGep);
                         }
@@ -414,6 +421,7 @@ public class Kor {
                                     gyozelemKondicio = true;
                                     break;
                                 }
+                                Palya.cleanUpMezok();
                                 System.out.println();
                                 System.out.println("[~] Az egyseged sikeresen visszatamadott!");
                             }

@@ -46,4 +46,40 @@ public class Feltamasztas extends Varazslat {
         }
         return "[~] Az egyseg sikeresen meg lett gyogyitva!";
     }
+
+    /**
+     * Úgy gondoltam, hogy a feltámasztást halott egységekre kell használni, de kurzusfórum alapján az élő egységek gyógyítására értendő.
+     *
+     * <p>Ez a halott egység feltámasztását valósítja meg, de akkor a végső verzióban csak az előbbi megvalósítás marad, amely képes
+     * a pályán levő, még élő egységek gyógyítására.</p>
+     *
+     * @param kinek melyik játékosról van szó
+     * @param milyenEgyseg milyen egységről van szó
+     * @return ha sikeres true, amúgy false
+     * @deprecated az első megvalósítás van használatban, viszont ezt a biztonság kedvéért nem törlöm
+     */
+    public static boolean feltamasztasHatas(Jatekos kinek, String milyenEgyseg) {
+        Egyseg feltamasztando = Egyseg.resolveEgyseg(milyenEgyseg, kinek);
+        if (!feltamasztando.rendelkezik || feltamasztando.getOsszEletero() > 0) {
+            return false;
+        }
+        int gyogyitas = kinek.jatekosHose.getVarazsero() * 50;
+        feltamasztando.setElhelyezett(false);
+        if (feltamasztando.getOsszEletero() + gyogyitas > feltamasztando.getMaxEletero()) {
+            feltamasztando.setOsszEletero(feltamasztando.getMaxEletero());
+            feltamasztando.setHanyVan(feltamasztando.getOsszEletero() / feltamasztando.getEletero());
+        }
+        else {
+            feltamasztando.setOsszEletero(0);
+            feltamasztando.setOsszEletero(feltamasztando.getOsszEletero() + gyogyitas);
+            if (feltamasztando.getOsszEletero() % feltamasztando.getEletero() == 0) {
+                feltamasztando.setHanyVan(feltamasztando.getOsszEletero() / feltamasztando.getEletero());
+            }
+            else {
+                feltamasztando.setHanyVan(feltamasztando.getOsszEletero() / feltamasztando.getEletero() + 1);
+            }
+        }
+        return true;
+    }
+
 }
