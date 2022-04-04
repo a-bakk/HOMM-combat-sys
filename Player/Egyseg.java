@@ -521,6 +521,7 @@ public class Egyseg {
      * @return a támadás sikeressége szövegesen
      */
     public String sebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
+        System.out.println();
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
         //System.out.println("[ezcsakteszt] alapsebzes: " + alapSebzes);
@@ -564,6 +565,7 @@ public class Egyseg {
      * @return a visszatámadás sikeressége szövegesen
      */
     public String visszatamadasSebzestKap(Jatekos kitTamad, Jatekos tamado, int koordX, int koordY) {
+        System.out.println();
         Egyseg tamadoEgysege = Palya.getMezok()[koordX][koordY].getTartalomEgyseg();
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);

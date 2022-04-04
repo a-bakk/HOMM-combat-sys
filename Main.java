@@ -15,7 +15,7 @@ import jatekpalya.*;
  * switch caset megspórolt volna, talán olvashatóbbá tette volna a kódot.</p>
  *
  * @author unknown
- * @version 1.1.0 (2022. április 4.)
+ * @version 1.2.0 (2022. április 5.)
  *
  */
 
