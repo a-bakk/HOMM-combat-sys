@@ -57,6 +57,10 @@ public class Egyseg {
      * Az egység a körben táamdott-e vissza.
      */
     protected boolean visszatamadott;
+    /**
+     * A játékos rendelkezik-e az egységgel.
+     */
+    protected boolean rendelkezik;
 
     /**
      * Az egységek megvásárlásáért felelős metódus. A tranzakció sikerességéről tájékoztatja a játékost.
@@ -79,6 +83,7 @@ public class Egyseg {
                 if (kinek.arany >= hanyat * kinek.egysegek[0].ar) {
                     kinek.egysegek[0].hanyVan += hanyat;
                     kinek.arany -= hanyat * kinek.egysegek[0].ar;
+                    kinek.egysegek[0].rendelkezik = true;
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
@@ -87,6 +92,7 @@ public class Egyseg {
                 if (kinek.arany >= hanyat * kinek.egysegek[1].ar) {
                     kinek.egysegek[1].hanyVan += hanyat;
                     kinek.arany -= hanyat * kinek.egysegek[1].ar;
+                    kinek.egysegek[1].rendelkezik = true;
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
@@ -95,6 +101,7 @@ public class Egyseg {
                 if (kinek.arany >= hanyat * kinek.egysegek[2].ar) {
                     kinek.egysegek[2].hanyVan += hanyat;
                     kinek.arany -= hanyat * kinek.egysegek[2].ar;
+                    kinek.egysegek[2].rendelkezik = true;
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
@@ -103,6 +110,7 @@ public class Egyseg {
                 if (kinek.arany >= hanyat * kinek.egysegek[3].ar) {
                     kinek.egysegek[3].hanyVan += hanyat;
                     kinek.arany -= hanyat * kinek.egysegek[3].ar;
+                    kinek.egysegek[3].rendelkezik = true;
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
@@ -111,6 +119,7 @@ public class Egyseg {
                 if (kinek.arany >= hanyat * kinek.egysegek[4].ar) {
                     kinek.egysegek[4].hanyVan += hanyat;
                     kinek.arany -= hanyat * kinek.egysegek[4].ar;
+                    kinek.egysegek[4].rendelkezik = true;
                     System.out.println("[~] Sikeresen vasaroltal " + hanyat +" darab " + milyenEgyseg + " egyseget!");
                     sikeres = true;
                 }
@@ -252,7 +261,43 @@ public class Egyseg {
     }
 
     /**
-     * Megmondja, hogy van az egység, amellyel a játékos ugyan rendelkezik, el van-e helyezve a pályán.
+     * A játékos halott egységeit listázza, hogy a feltámasztásnál legyen egyértelmű, melyek közül tud választani.
+     *
+     * @param kinek melyik játékosról van szó
+     */
+    public static void listHalottEgysegek(Jatekos kinek) {
+        System.out.println("[~] A halott egysegeid, melyek feltamaszthatoak: ");
+        for (int i = 0; i < kinek.egysegek.length; i++) {
+            if (kinek.egysegek[i].rendelkezik) {
+                switch (i) {
+                    case 0 -> {
+                        if (kinek.egysegek[0].getOsszEletero() <= 0)
+                            System.out.println("[~] foldmuves");
+                    }
+                    case 1 -> {
+                        if (kinek.egysegek[1].getOsszEletero() <= 0)
+                            System.out.println("[~] ijasz");
+                    }
+                    case 2 -> {
+                        if (kinek.egysegek[2].getOsszEletero() <= 0)
+                            System.out.println("[~] griff");
+                    }
+                    case 3 -> {
+                        if (kinek.egysegek[3].getOsszEletero() <= 0)
+                            System.out.println("[~] hobgoblin");
+                    }
+                    case 4 -> {
+                        if (kinek.egysegek[4].getOsszEletero() <= 0)
+                            System.out.println("[~] demon");
+                    }
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * Megmondja, hogy van-e olyan egység, amellyel a játékos ugyan rendelkezik, de nincs helyezve a pályán.
      *
      * @param kinek melyik játékosról van szó
      * @param milyenEgyseg milyen egység, amiről szeretnénk megtudni az információt
@@ -523,7 +568,7 @@ public class Egyseg {
         int alapSebzes = GameManager.mathRandom(tamadoEgysege.getMinSebzes(), tamadoEgysege.getMaxSebzes()) * tamadoEgysege.getHanyVan();
         double tamadoSebzes = GameManager.applyTamadas(tamado, alapSebzes);
         double sajatVedekezes = 1 - (kitTamad.jatekosHose.getVedekezes() * 0.05);
-        int vegsoSebzes = (int)Math.floor((tamadoSebzes * sajatVedekezes));
+        int vegsoSebzes = (int)Math.round((tamadoSebzes * sajatVedekezes));
 
         double kritEsely = tamado.jatekosHose.getSzerencse() * 0.05;
         if (Math.random() <= kritEsely) {
@@ -531,7 +576,7 @@ public class Egyseg {
             System.out.println("[~] A visszatamado egyseg kritikusan sebez!");
         }
 
-        vegsoSebzes /= 2;
+        vegsoSebzes = (int)Math.round(vegsoSebzes/2.0);
 
         this.setOsszEletero(this.getOsszEletero() - vegsoSebzes);
 
@@ -601,6 +646,10 @@ public class Egyseg {
 
     public void setHanyVan(int hanyVan) {
         this.hanyVan = hanyVan;
+    }
+
+    public void setElhelyezett(boolean elhelyezett) {
+        this.elhelyezett = elhelyezett;
     }
 
     //endregion
